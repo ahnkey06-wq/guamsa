@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>구암사 | 강원도 정선 · 마음의 쉼터</title>
+<meta name="description" content="강원도 정선군 구암사 - 운명상담, 기도, 템플스테이. 자연 속 마음의 쉼터">
+<style>
+/* ===== CSS RESET & VARIABLES ===== */
+:root {
+  --temple-dark: #3B2D1F;
+  --temple-brown: #6B4C30;
+  --temple-warm: #8C6A45;
+  --temple-gold: #C4993D;
+  --temple-gold-light: #E8C96A;
+  --temple-red: #B44A3E;
+  --temple-red-dark: #8B3028;
+  --temple-green: #4A7C59;
+  --temple-green-light: #6B9E7A;
+  --temple-sage: #8BAE8D;
+  --temple-cream: #FAF5EC;
+  --temple-beige: #F0E8D8;
+  --temple-stone: #D4C8B0;
+  --text-dark: #2C2016;
+  --text-body: #4A3E32;
+  --text-light: #7A6E5E;
+  --shadow: 0 2px 20px rgba(59,45,31,0.12);
+  --shadow-hover: 0 6px 30px rgba(59,45,31,0.20);
+  --radius: 12px;
+  --transition: 0.3s ease;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', -apple-system, sans-serif;
+  background: var(--temple-cream);
+  color: var(--text-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ===== NAVIGATION ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(59,45,31,0.92);
+  backdrop-filter: blur(10px);
+  padding: 0 24px;
+  transition: var(--transition);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 60px;
+}
+.nav-logo {
+  font-size: 20px; font-weight: 700; color: var(--temple-gold);
+  text-decoration: none; letter-spacing: 2px;
+}
+.nav-logo span { font-size: 14px; color: var(--temple-stone); margin-left: 8px; font-weight: 400; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a {
+  color: var(--temple-stone); text-decoration: none; font-size: 14px;
+  font-weight: 500; transition: color 0.2s; padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--temple-gold-light); border-bottom-color: var(--temple-gold); }
+
+.nav-hamburger {
+  display: none; cursor: pointer; flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 4px;
+}
+.nav-hamburger span {
+  width: 24px; height: 2px; background: var(--temple-stone); transition: var(--transition);
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #2C2016 0%, #3B2D1F 30%, #4A3E32 60%, #3B2D1F 100%);
+  overflow: hidden;
+  text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(196,153,61,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(74,124,89,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 70%);
+  pointer-events: none;
+}
+/* Floating particles */
+.hero-particles {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden; pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--temple-gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 8s infinite;
+}
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 10s; }
+.particle:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 8s; }
+.particle:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 12s; }
+.particle:nth-child(4) { left: 55%; animation-delay: 1s; animation-duration: 9s; }
+.particle:nth-child(5) { left: 70%; animation-delay: 3s; animation-duration: 11s; }
+.particle:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 7s; }
+@keyframes particleFloat {
+  0% { bottom: -10px; opacity: 0; transform: translateX(0); }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { bottom: 100%; opacity: 0; transform: translateX(40px); }
+}
+
+.hero-content { position: relative; z-index: 1; padding: 0 24px; }
+.hero-icon {
+  font-size: 60px; margin-bottom: 20px;
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.hero h1 {
+  font-size: 52px; font-weight: 800; color: var(--temple-gold);
+  letter-spacing: 8px; margin-bottom: 12px;
+  text-shadow: 0 2px 20px rgba(196,153,61,0.3);
+}
+.hero h1 .sub-hanja {
+  display: block; font-size: 18px; font-weight: 400; color: var(--temple-stone);
+  letter-spacing: 12px; margin-top: 8px; opacity: 0.7;
+}
+.hero-desc {
+  font-size: 18px; color: var(--temple-stone); max-width: 500px;
+  margin: 20px auto 0; line-height: 1.8; opacity: 0.9;
+}
+.hero-divider {
+  width: 60px; height: 2px; background: var(--temple-gold);
+  margin: 24px auto; opacity: 0.5;
+}
+.hero-location {
+  font-size: 14px; color: var(--temple-stone); opacity: 0.6;
+  letter-spacing: 3px;
+}
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  color: var(--temple-stone); opacity: 0.4; font-size: 13px;
+  text-decoration: none; animation: bounce 2s infinite;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  max-width: 1100px; margin: 0 auto;
+  padding: 80px 24px;
+}
+.section-header {
+  text-align: center; margin-bottom: 48px;
+}
+.section-header h2 {
+  font-size: 28px; font-weight: 700; color: var(--temple-dark);
+  margin-bottom: 8px; letter-spacing: 2px;
+}
+.section-header .section-line {
+  width: 40px; height: 3px; background: var(--temple-gold);
+  margin: 12px auto; border-radius: 2px;
+}
+.section-header p {
+  font-size: 15px; color: var(--text-light); margin-top: 8px;
+}
+
+/* ===== ABOUT ===== */
+#about { background: #fff; }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+}
+.about-image {
+  background: linear-gradient(135deg, var(--temple-beige), var(--temple-stone));
+  border-radius: var(--radius); height: 380px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 120px; position: relative; overflow: hidden;
+}
+.about-image::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+  background: linear-gradient(to top, rgba(59,45,31,0.15), transparent);
+}
+.about-text h3 {
+  font-size: 24px; color: var(--temple-dark); margin-bottom: 16px;
+  font-weight: 700;
+}
+.about-text p {
+  color: var(--text-body); margin-bottom: 14px; font-size: 15px;
+  line-height: 1.85;
+}
+.about-features {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 20px;
+}
+.about-feature {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--temple-cream);
+  border-radius: 8px; font-size: 14px; font-weight: 500;
+  color: var(--temple-dark);
+}
+.about-feature .af-icon { font-size: 20px; }
+
+/* ===== FORTUNE / COUNSELING ===== */
+#fortune { background: var(--temple-cream); }
+.fortune-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.fortune-card {
+  background: #fff;
+  border-radius: var(--radius); padding: 32px 24px;
+  text-align: center; box-shadow: var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-top: 4px solid var(--temple-gold);
+}
+.fortune-card:hover {
+  transform: translateY(-6px); box-shadow: var(--shadow-hover);
+}
+.fortune-card .fc-icon { font-size: 40px; margin-bottom: 14px; }
+.fortune-card h3 {
+  font-size: 18px; color: var(--temple-dark); margin-bottom: 10px;
+  font-weight: 700;
+}
+.fortune-card p {
+  font-size: 14px; color: var(--text-light); line-height: 1.7;
+  margin-bottom: 14px;
+}
+.fortune-card .fc-price {
+  font-size: 16px; font-weight: 700; color: var(--temple-red);
+}
+.fortune-card .fc-time {
+  font-size: 12px; color: var(--text-light); margin-top: 4px;
+}
+
+/* ===== BOOKING ===== */
+#booking { background: #fff; }
+.booking-wrapper {
+  max-width: 600px; margin: 0 auto;
+  background: var(--temple-cream); border-radius: var(--radius);
+  padding: 36px; box-shadow: var(--shadow);
+}
+.booking-wrapper h3 {
+  text-align: center; font-size: 20px; color: var(--temple-dark);
+  margin-bottom: 24px;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+.form-group label {
+  display: block; font-size: 14px; font-weight: 600;
+  color: var(--temple-dark); margin-bottom: 6px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--temple-stone);
+  border-radius: 8px; font-size: 14px; font-family: inherit;
+  background: #fff; color: var(--text-body);
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--temple-gold);
+  box-shadow: 0 0 0 3px rgba(196,153,61,0.15);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+/* Calendar */
+.booking-calendar-wrapper { margin-bottom: 18px; }
+.booking-cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.booking-cal-title { font-size: 16px; font-weight: 700; color: var(--temple-dark); }
+.booking-cal-nav {
+  background: none; border: 1px solid var(--temple-stone);
+  border-radius: 6px; padding: 4px 10px; cursor: pointer;
+  font-size: 14px; color: var(--temple-dark); transition: var(--transition);
+}
+.booking-cal-nav:hover { background: var(--temple-gold); color: #fff; border-color: var(--temple-gold); }
+.booking-cal-dow {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center; font-size: 12px; color: var(--text-light);
+  font-weight: 600; margin-bottom: 4px;
+}
+.booking-cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+}
+.booking-cal-day {
+  text-align: center; padding: 8px 4px; border-radius: 6px;
+  font-size: 14px; cursor: pointer; transition: var(--transition);
+  border: none; background: none; color: var(--text-body);
+}
+.booking-cal-day:hover:not(.disabled):not(.empty) { background: var(--temple-gold-light); color: #fff; }
+.booking-cal-day.selected { background: var(--temple-gold); color: #fff; font-weight: 700; }
+.booking-cal-day.disabled { color: #ccc; cursor: default; }
+.booking-cal-day.empty { cursor: default; }
+.booking-cal-day.today { font-weight: 700; border: 2px solid var(--temple-gold); }
+.booking-cal-day.has-unavailable { position: relative; }
+.booking-cal-day.has-unavailable::after {
+  content: ''; position: absolute; bottom: 2px; left: 50%;
+  transform: translateX(-50%); width: 5px; height: 5px;
+  border-radius: 50%; background: var(--temple-red);
+}
+.booking-cal-day.fully-unavailable {
+  color: #bbb; text-decoration: line-through;
+}
+
+/* Time Slots */
+.booking-time-slots {
+  display: none; margin-bottom: 18px;
+}
+.booking-time-slots.show { display: block; }
+.booking-time-slots h4 {
+  font-size: 14px; color: var(--temple-dark); margin-bottom: 8px; font-weight: 600;
+}
+.time-btn-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.time-btn {
+  padding: 8px 16px; border: 1px solid var(--temple-stone);
+  border-radius: 6px; background: #fff; cursor: pointer;
+  font-size: 13px; color: var(--text-body); transition: var(--transition);
+}
+.time-btn:hover:not(.unavailable) { border-color: var(--temple-gold); background: rgba(196,153,61,0.08); }
+.time-btn.selected { background: var(--temple-gold); color: #fff; border-color: var(--temple-gold); font-weight: 600; }
+.time-btn.unavailable {
+  background: #f5f0e8; color: #bbb; cursor: not-allowed;
+  text-decoration: line-through; border-color: #e0d8c8;
+}
+
+.booking-submit {
+  width: 100%; padding: 14px; background: var(--temple-gold);
+  color: #fff; border: none; border-radius: 8px; font-size: 16px;
+  font-weight: 700; cursor: pointer; transition: var(--transition);
+  letter-spacing: 1px;
+}
+.booking-submit:hover { background: var(--temple-brown); }
+.booking-submit:disabled { background: #ccc; cursor: not-allowed; }
+.booking-msg {
+  text-align: center; margin-top: 12px; font-size: 14px;
+  display: none;
+}
+.booking-msg.success { color: var(--temple-green); display: block; }
+.booking-msg.error { color: var(--temple-red); display: block; }
+
+/* ===== GUESTBOOK ===== */
+#guestbook { background: var(--temple-cream); }
+.guestbook-wrapper {
+  max-width: 700px; margin: 0 auto;
+}
+.gb-form {
+  background: #fff; border-radius: var(--radius);
+  padding: 28px; box-shadow: var(--shadow); margin-bottom: 28px;
+}
+.gb-form h3 { font-size: 18px; color: var(--temple-dark); margin-bottom: 16px; }
+.gb-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.gb-row .form-group { flex: 1; margin-bottom: 0; }
+.gb-entries {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.gb-entry {
+  background: #fff; border-radius: var(--radius);
+  padding: 20px; box-shadow: 0 1px 8px rgba(59,45,31,0.06);
+  border-left: 4px solid var(--temple-gold);
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.gb-entry-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.gb-entry-name { font-weight: 700; color: var(--temple-dark); font-size: 15px; }
+.gb-entry-date { font-size: 12px; color: var(--text-light); }
+.gb-entry-text { font-size: 14px; color: var(--text-body); line-height: 1.7; }
+.gb-empty {
+  text-align: center; padding: 40px 20px;
+  color: var(--text-light); font-size: 15px;
+}
+.gb-submit {
+  padding: 10px 24px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.gb-submit:hover { background: var(--temple-brown); }
+
+/* Guestbook Viewer Gate */
+.gb-viewer-gate {
+  background: #fff; border-radius: var(--radius);
+  padding: 36px 28px; box-shadow: var(--shadow);
+  text-align: center;
+}
+.gb-lock-icon { font-size: 40px; margin-bottom: 10px; }
+.gb-viewer-gate p {
+  font-size: 14px; color: var(--text-light); margin-bottom: 16px;
+}
+.gb-gate-form {
+  display: flex; gap: 8px; justify-content: center; align-items: center;
+}
+.gb-gate-form input {
+  padding: 10px 14px; border: 1px solid var(--temple-stone);
+  border-radius: 8px; font-size: 14px; text-align: center;
+  width: 180px; font-family: inherit;
+}
+.gb-gate-form input:focus { outline: none; border-color: var(--temple-gold); box-shadow: 0 0 0 3px rgba(196,153,61,0.15); }
+.gb-gate-btn {
+  padding: 10px 20px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: var(--transition); white-space: nowrap;
+}
+.gb-gate-btn:hover { background: var(--temple-brown); }
+.gb-gate-error {
+  color: var(--temple-red); font-size: 13px; margin-top: 10px; display: none;
+}
+.gb-more-btn {
+  display: block; width: 200px; margin: 20px auto 0; padding: 10px;
+  background: none; border: 1px solid var(--temple-stone);
+  border-radius: 8px; color: var(--text-light); font-size: 13px;
+  cursor: pointer; transition: var(--transition);
+}
+.gb-more-btn:hover { background: var(--temple-beige); }
+
+/* ===== LOCATION ===== */
+#location { background: #fff; }
+.location-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+}
+.location-map {
+  background: var(--temple-beige); border-radius: var(--radius);
+  height: 350px; display: flex; align-items: center; justify-content: center;
+  font-size: 80px; overflow: hidden; position: relative;
+}
+.location-map iframe {
+  width: 100%; height: 100%; border: 0; border-radius: var(--radius);
+}
+.location-info h3 {
+  font-size: 22px; color: var(--temple-dark); margin-bottom: 20px;
+}
+.location-item {
+  display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start;
+}
+.location-item .li-icon {
+  font-size: 20px; flex-shrink: 0; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--temple-cream); border-radius: 8px;
+}
+.location-item .li-text { font-size: 14px; }
+.location-item .li-label {
+  font-weight: 700; color: var(--temple-dark); display: block;
+  margin-bottom: 2px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--temple-dark); color: var(--temple-stone);
+  text-align: center; padding: 36px 24px;
+}
+.footer-logo { font-size: 22px; color: var(--temple-gold); font-weight: 700; letter-spacing: 4px; margin-bottom: 8px; }
+.footer p { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+/* ===== ADMIN PANEL ===== */
+.admin-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6); z-index: 2000;
+  align-items: center; justify-content: center;
+}
+.admin-overlay.show { display: flex; }
+.admin-panel {
+  background: #fff; border-radius: var(--radius);
+  width: 90%; max-width: 800px; max-height: 90vh;
+  overflow-y: auto; padding: 32px; position: relative;
+}
+.admin-close {
+  position: absolute; top: 12px; right: 16px;
+  background: none; border: none; font-size: 24px; cursor: pointer;
+  color: var(--text-light);
+}
+.admin-panel h2 {
+  font-size: 22px; color: var(--temple-dark); margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 2px solid var(--temple-beige);
+}
+/* Admin Tabs */
+.admin-tabs {
+  display: flex; gap: 0; margin-bottom: 24px;
+  border-bottom: 2px solid var(--temple-beige);
+}
+.admin-tab {
+  padding: 10px 20px; background: none; border: none;
+  font-size: 14px; font-weight: 600; color: var(--text-light);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: var(--transition);
+}
+.admin-tab.active { color: var(--temple-gold); border-bottom-color: var(--temple-gold); }
+.admin-tab:hover { color: var(--temple-dark); }
+.admin-content { display: none; }
+.admin-content.active { display: block; }
+
+/* Admin Booking List */
+.admin-booking-list { }
+.admin-booking-item {
+  background: var(--temple-cream); border-radius: 8px;
+  padding: 16px; margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.admin-booking-info h4 { font-size: 15px; color: var(--temple-dark); margin-bottom: 4px; }
+.admin-booking-info p { font-size: 13px; color: var(--text-light); }
+.admin-booking-actions { display: flex; gap: 8px; }
+.admin-btn {
+  padding: 6px 14px; border: none; border-radius: 6px;
+  font-size: 12px; font-weight: 600; cursor: pointer; transition: var(--transition);
+}
+.admin-btn.confirm { background: var(--temple-green); color: #fff; }
+.admin-btn.confirm:hover { background: var(--temple-green-light); }
+.admin-btn.cancel { background: var(--temple-red); color: #fff; }
+.admin-btn.cancel:hover { background: var(--temple-red-dark); }
+.admin-btn.delete { background: #999; color: #fff; }
+.admin-btn.delete:hover { background: #777; }
+.admin-booking-status {
+  display: inline-block; padding: 2px 8px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; margin-left: 8px;
+}
+.admin-booking-status.pending { background: #FFF3CD; color: #856404; }
+.admin-booking-status.confirmed { background: #D4EDDA; color: #155724; }
+.admin-booking-status.cancelled { background: #F8D7DA; color: #721C24; }
+
+/* Admin Availability */
+.admin-avail-section {}
+.admin-avail-cal { margin-bottom: 20px; }
+.admin-time-toggles {
+  display: none; background: var(--temple-cream);
+  border-radius: 8px; padding: 20px; margin-top: 16px;
+}
+.admin-time-toggles.show { display: block; }
+.admin-time-toggles h4 { font-size: 15px; color: var(--temple-dark); margin-bottom: 12px; }
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid var(--temple-beige);
+}
+.toggle-row:last-child { border-bottom: none; }
+.toggle-label { font-size: 14px; color: var(--text-body); }
+.toggle-switch {
+  position: relative; width: 44px; height: 24px;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: #ccc; border-radius: 12px; cursor: pointer;
+  transition: var(--transition);
+}
+.toggle-slider::before {
+  content: ''; position: absolute; width: 18px; height: 18px;
+  border-radius: 50%; background: #fff; left: 3px; top: 3px;
+  transition: var(--transition);
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--temple-green); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+.admin-save-row {
+  display: flex; align-items: center; gap: 12px; margin-top: 16px;
+}
+.admin-save-btn {
+  padding: 10px 28px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.admin-save-btn:hover { background: var(--temple-brown); }
+.admin-save-status { font-size: 13px; color: var(--temple-green); }
+
+/* Admin Login */
+.admin-login-box {
+  text-align: center; padding: 40px;
+}
+.admin-login-box input {
+  padding: 12px 16px; border: 1px solid var(--temple-stone);
+  border-radius: 8px; font-size: 16px; text-align: center;
+  width: 200px; margin-bottom: 12px; font-family: inherit;
+}
+.admin-login-box input:focus {
+  outline: none; border-color: var(--temple-gold);
+}
+.admin-login-btn {
+  display: block; margin: 0 auto;
+  padding: 10px 32px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer;
+}
+.admin-login-error { color: var(--temple-red); font-size: 13px; margin-top: 8px; display: none; }
+
+/* Admin Stats */
+.admin-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 20px;
+}
+.admin-stat-card {
+  background: var(--temple-cream); border-radius: 8px;
+  padding: 14px; text-align: center;
+  border-top: 3px solid var(--temple-gold);
+}
+.admin-stat-card.stat-pending { border-top-color: #D4A94E; }
+.admin-stat-card.stat-confirmed { border-top-color: var(--temple-green); }
+.admin-stat-card.stat-cancelled { border-top-color: var(--temple-red); }
+.admin-stat-card.stat-total { border-top-color: var(--temple-brown); }
+.admin-stat-value { font-size: 28px; font-weight: 800; color: var(--temple-dark); }
+.admin-stat-label { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+/* Admin Filter Bar */
+.admin-filter-bar {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;
+}
+.admin-filter-btn {
+  padding: 6px 14px; border: 1px solid var(--temple-stone); border-radius: 20px;
+  background: #fff; font-size: 12px; color: var(--text-light);
+  cursor: pointer; transition: var(--transition); font-weight: 500;
+}
+.admin-filter-btn.active {
+  background: var(--temple-gold); color: #fff; border-color: var(--temple-gold);
+}
+.admin-filter-btn:hover { border-color: var(--temple-gold); }
+.admin-search-input {
+  padding: 6px 14px; border: 1px solid var(--temple-stone); border-radius: 20px;
+  font-size: 12px; font-family: inherit; width: 180px; background: #fff;
+  color: var(--text-body); margin-left: auto;
+}
+.admin-search-input:focus { outline: none; border-color: var(--temple-gold); }
+
+/* Admin Calendar Booking Dots */
+.booking-cal-day.has-bookings { position: relative; }
+.booking-cal-day .cal-booking-count {
+  position: absolute; top: 1px; right: 2px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--temple-gold); color: #fff; font-size: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; line-height: 1;
+}
+
+/* Admin Date Booking Detail */
+.admin-date-bookings {
+  display: none; background: var(--temple-cream);
+  border-radius: 8px; padding: 20px; margin-top: 16px;
+}
+.admin-date-bookings.show { display: block; }
+.admin-date-bookings h4 {
+  font-size: 15px; color: var(--temple-dark); margin-bottom: 12px; font-weight: 700;
+}
+.admin-date-booking-item {
+  background: #fff; border-radius: 8px; padding: 12px 14px;
+  margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+  border-left: 3px solid var(--temple-gold); font-size: 13px;
+}
+.admin-date-booking-item.status-confirmed { border-left-color: var(--temple-green); }
+.admin-date-booking-item.status-cancelled { border-left-color: var(--temple-red); }
+.admin-date-booking-item .adb-info { flex: 1; }
+.admin-date-booking-item .adb-name { font-weight: 700; color: var(--temple-dark); }
+.admin-date-booking-item .adb-detail { color: var(--text-light); font-size: 12px; margin-top: 2px; }
+
+/* Guestbook Admin Reply */
+.gb-entry-reply {
+  background: var(--temple-cream); border-radius: 8px;
+  padding: 12px 14px; margin-top: 10px; border-left: 3px solid var(--temple-gold);
+}
+.gb-entry-reply .reply-header {
+  font-size: 12px; font-weight: 700; color: var(--temple-gold);
+  margin-bottom: 4px;
+}
+.gb-entry-reply .reply-text {
+  font-size: 13px; color: var(--text-body); line-height: 1.6;
+}
+
+/* Admin GB Detail Modal */
+.admin-gb-detail {
+  background: var(--temple-cream); border-radius: 8px;
+  padding: 20px; margin-bottom: 16px;
+  display: none;
+}
+.admin-gb-detail.show { display: block; }
+.admin-gb-detail h4 { font-size: 15px; color: var(--temple-dark); margin-bottom: 8px; }
+.admin-gb-detail .gb-full-content {
+  background: #fff; border-radius: 8px; padding: 14px;
+  font-size: 14px; color: var(--text-body); line-height: 1.7;
+  margin-bottom: 12px; white-space: pre-wrap;
+}
+.admin-gb-reply-form { display: flex; gap: 8px; }
+.admin-gb-reply-input {
+  flex: 1; padding: 8px 12px; border: 1px solid var(--temple-stone);
+  border-radius: 6px; font-size: 13px; font-family: inherit;
+  resize: none; min-height: 60px;
+}
+.admin-gb-reply-input:focus { outline: none; border-color: var(--temple-gold); }
+.admin-gb-reply-btn {
+  padding: 8px 16px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; align-self: flex-end; white-space: nowrap;
+}
+.admin-gb-reply-btn:hover { background: var(--temple-brown); }
+
+/* Admin Booking Item responsive */
+.admin-booking-item { flex-wrap: wrap; gap: 8px; cursor: pointer; transition: var(--transition); }
+.admin-booking-item:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.admin-booking-info { min-width: 0; flex: 1; }
+
+/* Admin Booking Detail Panel */
+.admin-booking-detail {
+  display: none; background: var(--temple-cream); border-radius: 12px;
+  padding: 24px; margin-bottom: 20px; position: relative;
+  border: 1px solid var(--temple-stone); animation: abdSlideIn 0.3s ease;
+}
+@keyframes abdSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.admin-booking-detail.show { display: block; }
+.abd-close {
+  position: absolute; top: 12px; right: 14px; background: none;
+  border: none; font-size: 18px; color: var(--text-light); cursor: pointer;
+  width: 30px; height: 30px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center; transition: var(--transition);
+}
+.abd-close:hover { background: rgba(0,0,0,0.06); color: var(--temple-dark); }
+.abd-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+}
+.abd-header h3 { font-size: 18px; color: var(--temple-dark); font-weight: 800; margin: 0; }
+.abd-type {
+  font-size: 14px; color: var(--temple-gold); font-weight: 600; margin-bottom: 16px;
+}
+.abd-info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  background: #fff; border-radius: 8px; padding: 14px; margin-bottom: 16px;
+}
+.abd-info-item { display: flex; flex-direction: column; gap: 2px; }
+.abd-label { font-size: 11px; color: var(--text-light); font-weight: 600; }
+.abd-info-item span:last-child { font-size: 14px; color: var(--text-body); font-weight: 500; }
+.abd-section { margin-bottom: 16px; }
+.abd-section h4 {
+  font-size: 14px; color: var(--temple-dark); font-weight: 700;
+  margin-bottom: 8px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--temple-stone);
+}
+.abd-client-memo {
+  background: #fff; border-radius: 8px; padding: 12px 14px;
+  font-size: 14px; color: var(--text-body); line-height: 1.7;
+  white-space: pre-wrap; min-height: 40px;
+}
+.abd-client-memo.empty { color: var(--text-light); font-style: italic; }
+.abd-memo-textarea {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--temple-stone);
+  border-radius: 8px; font-size: 13px; font-family: inherit;
+  resize: vertical; min-height: 80px; line-height: 1.6;
+  background: #fff; color: var(--text-body); box-sizing: border-box;
+}
+.abd-memo-textarea:focus { outline: none; border-color: var(--temple-gold); }
+.abd-memo-actions {
+  display: flex; align-items: center; gap: 10px; margin-top: 8px;
+}
+.abd-memo-save {
+  padding: 8px 20px; background: var(--temple-gold); color: #fff;
+  border: none; border-radius: 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: var(--transition);
+}
+.abd-memo-save:hover { background: var(--temple-brown); }
+.abd-memo-saved {
+  font-size: 12px; color: var(--temple-green); font-weight: 600;
+  opacity: 0; transition: opacity 0.3s;
+}
+.abd-memo-saved.show { opacity: 1; }
+
+/* Consult History */
+.abd-history-item {
+  background: #fff; border-radius: 8px; padding: 12px 14px;
+  margin-bottom: 8px; border-left: 3px solid var(--temple-gold);
+  position: relative;
+}
+.abd-history-date {
+  font-size: 11px; color: var(--text-light); font-weight: 600; margin-bottom: 4px;
+}
+.abd-history-content {
+  font-size: 13px; color: var(--text-body); line-height: 1.6; white-space: pre-wrap;
+}
+.abd-history-delete {
+  position: absolute; top: 8px; right: 8px; background: none;
+  border: none; font-size: 12px; color: var(--text-light); cursor: pointer;
+  opacity: 0.4; padding: 2px 6px; border-radius: 4px; transition: var(--transition);
+}
+.abd-history-delete:hover { opacity: 1; color: var(--temple-red); background: rgba(198,75,75,0.08); }
+.abd-history-empty {
+  text-align: center; color: var(--text-light); font-size: 13px;
+  padding: 16px; font-style: italic;
+}
+.abd-history-form { margin-top: 10px; }
+.abd-history-input {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--temple-stone);
+  border-radius: 8px; font-size: 13px; font-family: inherit;
+  resize: vertical; min-height: 60px; line-height: 1.6;
+  background: #fff; color: var(--text-body); box-sizing: border-box;
+}
+.abd-history-input:focus { outline: none; border-color: var(--temple-gold); }
+.abd-history-add {
+  margin-top: 8px; padding: 8px 20px; background: var(--temple-brown);
+  color: #fff; border: none; border-radius: 6px; font-size: 13px;
+  font-weight: 600; cursor: pointer; transition: var(--transition);
+}
+.abd-history-add:hover { background: var(--temple-dark); }
+
+/* Detail Actions */
+.abd-actions {
+  display: flex; gap: 8px; margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid var(--temple-stone); flex-wrap: wrap;
+}
+.abd-actions .admin-btn { padding: 8px 20px; font-size: 13px; }
+
+/* Admin trigger (hidden in footer) */
+.admin-trigger {
+  background: none; border: none; color: var(--temple-stone);
+  opacity: 0.3; font-size: 11px; cursor: pointer; padding: 4px 8px;
+  margin-top: 10px;
+}
+.admin-trigger:hover { opacity: 0.6; }
+
+/* Admin responsive extras */
+@media (max-width: 600px) {
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+  .admin-filter-bar { flex-direction: column; align-items: stretch; }
+  .admin-search-input { margin-left: 0; width: 100%; }
+  .abd-info-grid { grid-template-columns: 1fr; }
+  .admin-booking-detail { padding: 18px; }
+  .abd-header h3 { font-size: 16px; }
+  .abd-actions { flex-direction: column; }
+  .abd-actions .admin-btn { width: 100%; text-align: center; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 60px; left: 0; right: 0;
+    background: rgba(59,45,31,0.98); padding: 20px 24px;
+    gap: 16px;
+  }
+  .hero h1 { font-size: 36px; letter-spacing: 4px; }
+  .hero-desc { font-size: 15px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-image { height: 240px; }
+  .fortune-cards { grid-template-columns: 1fr; }
+  .location-grid { grid-template-columns: 1fr; }
+  .location-map { height: 250px; }
+  .booking-wrapper { padding: 24px 18px; }
+  .gb-row { flex-direction: column; gap: 0; }
+  .gb-row .form-group { margin-bottom: 12px; }
+  .admin-panel { padding: 20px; width: 95%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">구암사<span>龜巖寺</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">사찰소개</a></li>
+      <li><a href="#fortune">운명상담</a></li>
+      <li><a href="#booking">상담예약</a></li>
+      <li><a href="#guestbook">방명록</a></li>
+      <li><a href="#location">오시는 길</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navToggle" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-particles">
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-icon">🐢</div>
+    <h1>
+      구암사
+      <span class="sub-hanja">龜 巖 寺</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      거북바위 아래 자리한 천년고찰<br>
+      강원도 정선의 깊은 산속에서<br>
+      마음의 평안과 삶의 방향을 찾아드립니다
+    </p>
+    <div class="hero-divider"></div>
+    <p class="hero-location">강 원 도 &nbsp; 정 선 군</p>
+  </div>
+  <a href="#about" class="hero-scroll">
+    <span>아래로 스크롤</span>
+    <span>▼</span>
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-header">
+    <h2>🏛️ 사찰 소개</h2>
+    <div class="section-line"></div>
+    <p>거북바위의 기운이 서린 정선의 마음 쉼터</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-image">🏔️</div>
+    <div class="about-text">
+      <h3>거북바위 아래, 천년의 기도</h3>
+      <p>
+        구암사(龜巖寺)는 강원도 정선군의 깊은 산중에 자리한 사찰로,
+        거북 모양의 커다란 바위(龜巖) 아래에 세워져 그 이름을 얻었습니다.
+      </p>
+      <p>
+        수려한 자연 속에서 마음의 고요를 찾고, 운명상담을 통해
+        삶의 방향을 모색할 수 있는 특별한 도량입니다. 사계절 아름다운
+        정선의 산세와 맑은 공기 속에서 진정한 쉼을 경험하세요.
+      </p>
+      <div class="about-features">
+        <div class="about-feature">
+          <span class="af-icon">🔮</span>
+          <span>운명상담</span>
+        </div>
+        <div class="about-feature">
+          <span class="af-icon">🙏</span>
+          <span>기도·법회</span>
+        </div>
+        <div class="about-feature">
+          <span class="af-icon">🏕️</span>
+          <span>템플스테이</span>
+        </div>
+        <div class="about-feature">
+          <span class="af-icon">🍵</span>
+          <span>다도 체험</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORTUNE COUNSELING -->
+<section id="fortune" class="section">
+  <div class="section-header">
+    <h2>🔮 운명상담 안내</h2>
+    <div class="section-line"></div>
+    <p>사주·작명·궁합 등 전통 운명학으로 삶의 길을 밝혀드립니다</p>
+  </div>
+  <div class="fortune-cards">
+    <div class="fortune-card">
+      <div class="fc-icon">📜</div>
+      <h3>사주 상담</h3>
+      <p>태어난 년·월·일·시를 바탕으로 타고난 운명과 앞으로의 운세를 상세히 풀이해 드립니다.</p>
+      <div class="fc-price">50,000원</div>
+      <div class="fc-time">⏱ 약 40분 소요</div>
+    </div>
+    <div class="fortune-card">
+      <div class="fc-icon">💕</div>
+      <h3>궁합 상담</h3>
+      <p>두 분의 사주를 비교 분석하여 서로의 인연과 조화, 주의할 점을 알려드립니다.</p>
+      <div class="fc-price">70,000원</div>
+      <div class="fc-time">⏱ 약 50분 소요</div>
+    </div>
+    <div class="fortune-card">
+      <div class="fc-icon">✍️</div>
+      <h3>작명 상담</h3>
+      <p>사주와 음양오행에 맞는 좋은 이름을 지어드립니다. 신생아·개명 모두 가능합니다.</p>
+      <div class="fc-price">100,000원</div>
+      <div class="fc-time">⏱ 약 60분 소요</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="section">
+  <div class="section-header">
+    <h2>📅 상담 예약</h2>
+    <div class="section-line"></div>
+    <p>원하시는 날짜와 시간을 선택해 운명상담을 예약하세요</p>
+  </div>
+  <div class="booking-wrapper">
+    <h3>운명상담 예약 신청</h3>
+    <form id="bookingForm" autocomplete="off">
+      <div class="form-group">
+        <label>성함 *</label>
+        <input type="text" id="bkName" required placeholder="이름을 입력하세요">
+      </div>
+      <div class="form-group">
+        <label>연락처 *</label>
+        <input type="tel" id="bkPhone" required placeholder="010-0000-0000">
+      </div>
+      <div class="form-group">
+        <label>상담 종류 *</label>
+        <select id="bkType" required>
+          <option value="">선택하세요</option>
+          <option value="사주 상담">사주 상담 (50,000원)</option>
+          <option value="궁합 상담">궁합 상담 (70,000원)</option>
+          <option value="작명 상담">작명 상담 (100,000원)</option>
+        </select>
+      </div>
+      <!-- Calendar -->
+      <div class="form-group">
+        <label>예약 날짜 *</label>
+      </div>
+      <div class="booking-calendar-wrapper">
+        <div class="booking-cal-header">
+          <button type="button" class="booking-cal-nav" id="bkCalPrev">◀</button>
+          <span class="booking-cal-title" id="bkCalTitle"></span>
+          <button type="button" class="booking-cal-nav" id="bkCalNext">▶</button>
+        </div>
+        <div class="booking-cal-dow">
+          <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div class="booking-cal-grid" id="bkCalGrid"></div>
+      </div>
+      <!-- Time Slots -->
+      <div class="booking-time-slots" id="bkTimeSlots">
+        <h4 id="bkTimeHeader">시간 선택</h4>
+        <div class="time-btn-grid" id="bkTimeBtns"></div>
+      </div>
+      <div class="form-group">
+        <label>요청사항</label>
+        <textarea id="bkMemo" placeholder="생년월일시, 상담 관련 메모 등"></textarea>
+      </div>
+      <button type="submit" class="booking-submit" id="bkSubmit">예약 신청하기</button>
+      <div class="booking-msg" id="bkMsg"></div>
+    </form>
+    <!-- Booking Admin Gate -->
+    <div style="margin-top:32px; border-top: 1px solid var(--temple-stone); padding-top: 28px;">
+      <div id="bkAdminGate" class="gb-viewer-gate">
+        <div class="gb-lock-icon">🔒</div>
+        <p>예약 내역 관리는 관리자 비밀번호가 필요합니다.</p>
+        <div class="gb-gate-form">
+          <input type="password" id="bkAdminGatePw" placeholder="비밀번호 입력">
+          <button type="button" class="gb-gate-btn" id="bkAdminGateBtn">조회하기</button>
+        </div>
+        <div class="gb-gate-error" id="bkAdminGateErr">비밀번호가 틀렸습니다.</div>
+      </div>
+      <div id="bkAdminPanel" style="display:none;">
+        <h3 style="font-size:18px; color:var(--temple-dark); margin-bottom:16px;">📋 예약 내역 관리</h3>
+        <div class="admin-filter-bar">
+          <button class="admin-filter-btn active" data-bkfilter="all">전체</button>
+          <button class="admin-filter-btn" data-bkfilter="pending">대기중</button>
+          <button class="admin-filter-btn" data-bkfilter="confirmed">확인됨</button>
+          <button class="admin-filter-btn" data-bkfilter="cancelled">취소됨</button>
+          <input type="text" class="admin-search-input" id="bkAdminSearch" placeholder="🔍 이름·연락처 검색">
+        </div>
+        <div id="bkAdminList"></div>
+        <div class="admin-booking-detail" id="bkAdminDetail"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUESTBOOK -->
+<section id="guestbook" class="section">
+  <div class="section-header">
+    <h2>📖 방명록</h2>
+    <div class="section-line"></div>
+    <p>구암사를 방문하신 소감을 남겨주세요</p>
+  </div>
+  <div class="guestbook-wrapper">
+    <div class="gb-form">
+      <h3>✏️ 방명록 작성</h3>
+      <div class="form-group">
+        <label>이름 *</label>
+        <input type="text" id="gbName" placeholder="이름을 입력하세요" required>
+      </div>
+      <div class="form-group">
+        <label>내용 *</label>
+        <textarea id="gbContent" placeholder="방문 소감을 남겨주세요..." required style="min-height:100px"></textarea>
+      </div>
+      <button type="button" class="gb-submit" id="gbSubmitBtn">등록하기</button>
+      <div class="booking-msg" id="gbMsg" style="display:none;"></div>
+    </div>
+    <!-- Guestbook Viewer (password-gated) -->
+    <div id="gbViewerGate" class="gb-viewer-gate">
+      <div class="gb-lock-icon">🔒</div>
+      <p>방명록 열람은 관리자 비밀번호가 필요합니다.</p>
+      <div class="gb-gate-form">
+        <input type="password" id="gbGatePw" placeholder="비밀번호 입력">
+        <button type="button" class="gb-gate-btn" id="gbGateBtn">열람하기</button>
+      </div>
+      <div class="gb-gate-error" id="gbGateErr">비밀번호가 틀렸습니다.</div>
+    </div>
+    <div class="gb-entries" id="gbEntries" style="display:none;">
+      <div class="gb-empty" id="gbEmpty">
+        아직 작성된 방명록이 없습니다. 🙏
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location" class="section">
+  <div class="section-header">
+    <h2>📍 오시는 길</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="location-grid">
+    <div class="location-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d101285.62567893!2d128.6!3d37.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3562e01fbe7a3527%3A0x3e0e8a3b38f30fb9!2z6rCV7JuQ64-EIOyglOyEoOq1sA!5e0!3m2!1sko!2skr!4v1" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="location-info">
+      <h3>찾아오시는 방법</h3>
+      <div class="location-item">
+        <div class="li-icon">📍</div>
+        <div class="li-text">
+          <span class="li-label">주소</span>
+          강원특별자치도 정선군
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="li-icon">📞</div>
+        <div class="li-text">
+          <span class="li-label">전화 문의</span>
+          사찰로 직접 문의해 주세요
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="li-icon">🚗</div>
+        <div class="li-text">
+          <span class="li-label">자가용</span>
+          영동고속도로 → 정선 방면 → 구암사
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="li-icon">🚌</div>
+        <div class="li-text">
+          <span class="li-label">대중교통</span>
+          정선터미널에서 농어촌버스 이용
+        </div>
+      </div>
+      <div class="location-item">
+        <div class="li-icon">⏰</div>
+        <div class="li-text">
+          <span class="li-label">상담 시간</span>
+          오전 10:00 ~ 오후 5:00 (매주 월요일 휴무)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">구암사 龜巖寺</div>
+  <p>강원특별자치도 정선군 · 거북바위 아래 마음의 쉼터</p>
+  <p style="margin-top:8px;">© 2025 구암사. All rights reserved.</p>
+  <button class="admin-trigger" id="adminTrigger">관리자</button>
+</footer>
+
+<!-- ADMIN OVERLAY -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <button class="admin-close" id="adminClose">&times;</button>
+
+    <!-- Login -->
+    <div id="adminLoginSection">
+      <h2>🔐 관리자 로그인</h2>
+      <div class="admin-login-box">
+        <input type="password" id="adminPw" placeholder="비밀번호 입력">
+        <br>
+        <button class="admin-login-btn" id="adminLoginBtn">로그인</button>
+        <div class="admin-login-error" id="adminLoginErr">비밀번호가 틀렸습니다.</div>
+      </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashSection" style="display:none;">
+      <h2>📊 관리자 대시보드</h2>
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="tabBookings">예약 관리</button>
+        <button class="admin-tab" data-tab="tabAvailability">예약 가능 시간</button>
+        <button class="admin-tab" data-tab="tabGuestbook">방명록 관리</button>
+      </div>
+
+      <!-- Tab: Bookings -->
+      <div class="admin-content active" id="tabBookings">
+        <!-- Stats -->
+        <div class="admin-stats" id="adminBookingStats"></div>
+        <!-- Filter -->
+        <div class="admin-filter-bar">
+          <button class="admin-filter-btn active" data-filter="all">전체</button>
+          <button class="admin-filter-btn" data-filter="pending">대기중</button>
+          <button class="admin-filter-btn" data-filter="confirmed">확인됨</button>
+          <button class="admin-filter-btn" data-filter="cancelled">취소됨</button>
+          <input type="text" class="admin-search-input" id="adminBookingSearch" placeholder="🔍 이름·연락처 검색">
+        </div>
+        <!-- Calendar View -->
+        <div style="margin-bottom:16px;">
+          <div class="booking-cal-header">
+            <button type="button" class="booking-cal-nav" id="adminBkCalPrev">◀</button>
+            <span class="booking-cal-title" id="adminBkCalTitle"></span>
+            <button type="button" class="booking-cal-nav" id="adminBkCalNext">▶</button>
+          </div>
+          <div class="booking-cal-dow">
+            <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+          </div>
+          <div class="booking-cal-grid" id="adminBkCalGrid"></div>
+        </div>
+        <!-- Date-specific bookings -->
+        <div class="admin-date-bookings" id="adminDateBookings">
+          <h4 id="adminDateBkTitle"></h4>
+          <div id="adminDateBkList"></div>
+        </div>
+        <!-- Full list -->
+        <h4 style="font-size:15px;color:var(--temple-dark);margin-bottom:10px;margin-top:10px;">📋 전체 예약 목록</h4>
+        <div class="admin-booking-list" id="adminBookingList">
+          <p style="text-align:center;color:var(--text-light);padding:20px;">예약 내역을 불러오는 중...</p>
+        </div>
+        <!-- Booking Detail Panel -->
+        <div class="admin-booking-detail" id="adminBookingDetail">
+          <button type="button" class="abd-close" id="abdClose">✕</button>
+          <div class="abd-header">
+            <h3 id="abdName"></h3>
+            <span class="admin-booking-status" id="abdStatus"></span>
+          </div>
+          <div class="abd-type" id="abdType"></div>
+          <div class="abd-info-grid">
+            <div class="abd-info-item"><span class="abd-label">📅 예약일</span><span id="abdDate"></span></div>
+            <div class="abd-info-item"><span class="abd-label">🕐 시간</span><span id="abdTime"></span></div>
+            <div class="abd-info-item"><span class="abd-label">📞 연락처</span><span id="abdPhone"></span></div>
+            <div class="abd-info-item"><span class="abd-label">📝 신청일</span><span id="abdCreated"></span></div>
+          </div>
+          <div class="abd-section">
+            <h4>💬 고객 메모</h4>
+            <div class="abd-client-memo" id="abdClientMemo">메모 없음</div>
+          </div>
+          <div class="abd-section">
+            <h4>📋 관리자 메모</h4>
+            <textarea class="abd-memo-textarea" id="abdAdminMemo" placeholder="관리자 메모를 입력하세요 (생년월일, 상담 결과, 특이사항 등)"></textarea>
+            <div class="abd-memo-actions">
+              <button type="button" class="abd-memo-save" id="abdMemoSave">메모 저장</button>
+              <span class="abd-memo-saved" id="abdMemoSaved">✓ 저장됨</span>
+            </div>
+          </div>
+          <div class="abd-section">
+            <h4>📜 상담 이력</h4>
+            <div id="abdHistoryList"></div>
+            <div class="abd-history-form">
+              <textarea class="abd-history-input" id="abdHistoryInput" placeholder="상담 내용을 기록하세요..."></textarea>
+              <button type="button" class="abd-history-add" id="abdHistoryAdd">이력 추가</button>
+            </div>
+          </div>
+          <div class="abd-actions" id="abdActions"></div>
+        </div>
+      </div>
+
+      <!-- Tab: Availability -->
+      <div class="admin-content" id="tabAvailability">
+        <div class="admin-avail-section">
+          <p style="font-size:14px;color:var(--text-light);margin-bottom:16px;">
+            날짜를 선택한 후 시간대별 예약 가능 여부를 설정하세요.
+          </p>
+          <div class="admin-avail-cal">
+            <div class="booking-cal-header">
+              <button type="button" class="booking-cal-nav" id="adminCalPrev">◀</button>
+              <span class="booking-cal-title" id="adminCalTitle"></span>
+              <button type="button" class="booking-cal-nav" id="adminCalNext">▶</button>
+            </div>
+            <div class="booking-cal-dow">
+              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+            </div>
+            <div class="booking-cal-grid" id="adminCalGrid"></div>
+          </div>
+          <div class="admin-time-toggles" id="adminTimeToggles">
+            <h4 id="adminTimeTitle">시간대 설정</h4>
+            <div id="adminToggleList"></div>
+            <div class="admin-save-row">
+              <button type="button" class="admin-save-btn" id="adminAvailSave">저장</button>
+              <span class="admin-save-status" id="adminAvailStatus"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Guestbook Management -->
+      <div class="admin-content" id="tabGuestbook">
+        <div class="admin-filter-bar">
+          <span style="font-size:14px;font-weight:600;color:var(--temple-dark);">📖 방명록 관리</span>
+          <span id="adminGbCount" style="font-size:12px;color:var(--text-light);"></span>
+          <input type="text" class="admin-search-input" id="adminGbSearch" placeholder="🔍 이름·내용 검색">
+        </div>
+        <!-- Detail/Reply Panel -->
+        <div class="admin-gb-detail" id="adminGbDetail">
+          <h4 id="adminGbDetailTitle"></h4>
+          <div class="gb-full-content" id="adminGbDetailContent"></div>
+          <div style="font-size:12px;color:var(--text-light);margin-bottom:10px;" id="adminGbDetailDate"></div>
+          <div id="adminGbExistingReply" style="margin-bottom:10px;"></div>
+          <div class="admin-gb-reply-form">
+            <textarea class="admin-gb-reply-input" id="adminGbReplyInput" placeholder="답글을 입력하세요 (스님의 말씀)"></textarea>
+            <button class="admin-gb-reply-btn" id="adminGbReplyBtn">답글 등록</button>
+          </div>
+        </div>
+        <div id="adminGbList">
+          <p style="text-align:center;color:var(--text-light);padding:20px;">방명록을 불러오는 중...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =============================================================
+   구암사 홈페이지 JavaScript v2
+   - 방명록 (관리자만 열람 가능 + 답글 + 공개 설정)
+   - 운명상담 예약 (캘린더 예약건수 표시 + 통계 + 필터)
+   - 관리자 예약/가용시간 관리
+   ============================================================= */
+
+(function() {
+  'use strict';
+
+  // ===== CONFIG =====
+  var ADMIN_PASSWORD = '0419';
+  var TIME_SLOTS = [
+    { label: '오전 10:00', value: '오전 10:00' },
+    { label: '오전 11:00', value: '오전 11:00' },
+    { label: '오후 1:00',  value: '오후 1:00' },
+    { label: '오후 2:00',  value: '오후 2:00' },
+    { label: '오후 3:00',  value: '오후 3:00' },
+    { label: '오후 4:00',  value: '오후 4:00' },
+    { label: '오후 5:00',  value: '오후 5:00' }
+  ];
+
+  // ===== STORAGE HELPERS =====
+  function getStore(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || null; }
+    catch(e) { return null; }
+  }
+  function setStore(key, val) {
+    localStorage.setItem(key, JSON.stringify(val));
+  }
+
+  // ===== DATE HELPERS =====
+  function getDateKey(y, m, d) {
+    return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+  }
+  function formatDate(dateStr) {
+    var parts = dateStr.split('-');
+    return parts[0] + '년 ' + parseInt(parts[1]) + '월 ' + parseInt(parts[2]) + '일';
+  }
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ===== AVAILABILITY DATA =====
+  var availabilityData = getStore('guamsa_availability') || {};
+
+  function isSlotAvailable(dateKey, timeValue) {
+    if (!availabilityData[dateKey]) return true;
+    if (availabilityData[dateKey][timeValue] === undefined) return true;
+    return availabilityData[dateKey][timeValue];
+  }
+  function isDateFullyUnavailable(dateKey) {
+    if (!availabilityData[dateKey]) return false;
+    for (var i = 0; i < TIME_SLOTS.length; i++) {
+      if (isSlotAvailable(dateKey, TIME_SLOTS[i].value)) return false;
+    }
+    return true;
+  }
+
+  // ===== NAVIGATION =====
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { navLinks.classList.remove('open'); });
+  });
+  window.addEventListener('scroll', function() {
+    var scrollY = window.scrollY;
+    document.querySelectorAll('section[id]').forEach(function(sec) {
+      var top = sec.offsetTop - 80;
+      var bottom = top + sec.offsetHeight;
+      var link = navLinks.querySelector('a[href="#' + sec.id + '"]');
+      if (link) {
+        if (scrollY >= top && scrollY < bottom) link.classList.add('active');
+        else link.classList.remove('active');
+      }
+    });
+  });
+
+  // ===== BOOKING CALENDAR (PUBLIC) =====
+  var bkCalYear, bkCalMonth, bkSelectedDate = null, bkSelectedTime = null;
+  var today = new Date();
+  bkCalYear = today.getFullYear();
+  bkCalMonth = today.getMonth();
+
+  function renderBookingCal() {
+    var title = document.getElementById('bkCalTitle');
+    var grid = document.getElementById('bkCalGrid');
+    title.textContent = bkCalYear + '년 ' + (bkCalMonth + 1) + '월';
+    var firstDay = new Date(bkCalYear, bkCalMonth, 1).getDay();
+    var lastDate = new Date(bkCalYear, bkCalMonth + 1, 0).getDate();
+    var todayStr = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+    var html = '';
+    for (var e = 0; e < firstDay; e++) html += '<div class="booking-cal-day empty"></div>';
+    for (var d = 1; d <= lastDate; d++) {
+      var dk = getDateKey(bkCalYear, bkCalMonth, d);
+      var dateObj = new Date(bkCalYear, bkCalMonth, d);
+      var isPast = dateObj < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      var cls = 'booking-cal-day';
+      if (isPast) cls += ' disabled';
+      if (dk === todayStr) cls += ' today';
+      if (!isPast && isDateFullyUnavailable(dk)) cls += ' fully-unavailable disabled';
+      if (bkSelectedDate && dk === getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate())) cls += ' selected';
+      if (!isPast && availabilityData[dk] && !isDateFullyUnavailable(dk)) {
+        for (var t in availabilityData[dk]) {
+          if (availabilityData[dk][t] === false) { cls += ' has-unavailable'; break; }
+        }
+      }
+      html += '<div class="' + cls + '" data-date="' + dk + '">' + d + '</div>';
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.booking-cal-day:not(.disabled):not(.empty)').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var parts = this.getAttribute('data-date').split('-');
+        bkSelectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        bkSelectedTime = null;
+        renderBookingCal();
+        renderBookingTimeSlots();
+      });
+    });
+  }
+
+  function renderBookingTimeSlots() {
+    var section = document.getElementById('bkTimeSlots');
+    var header = document.getElementById('bkTimeHeader');
+    var btns = document.getElementById('bkTimeBtns');
+    if (!bkSelectedDate) { section.classList.remove('show'); return; }
+    section.classList.add('show');
+    var dk = getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate());
+    header.textContent = formatDate(dk) + ' 시간 선택';
+    var html = '';
+    for (var i = 0; i < TIME_SLOTS.length; i++) {
+      var s = TIME_SLOTS[i];
+      var unavail = !isSlotAvailable(dk, s.value);
+      var cls = 'time-btn';
+      if (unavail) cls += ' unavailable';
+      else if (bkSelectedTime === s.value) cls += ' selected';
+      html += '<button type="button" class="' + cls + '" data-time="' + s.value + '"' + (unavail ? ' disabled' : '') + '>' + s.label + '</button>';
+    }
+    btns.innerHTML = html;
+    btns.querySelectorAll('.time-btn:not(.unavailable)').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        bkSelectedTime = this.getAttribute('data-time');
+        renderBookingTimeSlots();
+      });
+    });
+  }
+
+  document.getElementById('bkCalPrev').addEventListener('click', function() {
+    bkCalMonth--; if (bkCalMonth < 0) { bkCalMonth = 11; bkCalYear--; } renderBookingCal();
+  });
+  document.getElementById('bkCalNext').addEventListener('click', function() {
+    bkCalMonth++; if (bkCalMonth > 11) { bkCalMonth = 0; bkCalYear++; } renderBookingCal();
+  });
+  renderBookingCal();
+
+  // ===== BOOKING FORM SUBMIT =====
+  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('bkName').value.trim();
+    var phone = document.getElementById('bkPhone').value.trim();
+    var type = document.getElementById('bkType').value;
+    var memo = document.getElementById('bkMemo').value.trim();
+    var msg = document.getElementById('bkMsg');
+    if (!name || !phone || !type) { msg.className = 'booking-msg error'; msg.textContent = '모든 필수 항목을 입력해주세요.'; return; }
+    if (!bkSelectedDate || !bkSelectedTime) { msg.className = 'booking-msg error'; msg.textContent = '날짜와 시간을 선택해주세요.'; return; }
+    var dk = getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate());
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings.push({
+      id: Date.now().toString(36), name: name, phone: phone, type: type,
+      date: dk, time: bkSelectedTime, memo: memo, status: 'pending',
+      createdAt: new Date().toISOString()
+    });
+    setStore('guamsa_bookings', bookings);
+    msg.className = 'booking-msg success';
+    msg.textContent = '✅ 예약이 접수되었습니다! 확인 후 연락드리겠습니다.';
+    document.getElementById('bookingForm').reset();
+    bkSelectedDate = null; bkSelectedTime = null;
+    renderBookingCal();
+    document.getElementById('bkTimeSlots').classList.remove('show');
+    setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
+  });
+
+  // ===== GUESTBOOK (PUBLIC) =====
+  function getGuestbookEntries() { return getStore('guamsa_guestbook') || []; }
+  function saveGuestbookEntries(entries) { setStore('guamsa_guestbook', entries); }
+
+  function renderGuestbook() {
+    var entries = getGuestbookEntries();
+    var container = document.getElementById('gbEntries');
+    var empty = document.getElementById('gbEmpty');
+    // If admin unlocked, show all entries; otherwise only approved
+    var displayEntries;
+    if (gbUnlocked) {
+      displayEntries = entries;
+    } else {
+      displayEntries = entries.filter(function(e) { return e.approved; });
+    }
+    if (displayEntries.length === 0) {
+      container.innerHTML = '';
+      container.appendChild(empty);
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    var sorted = displayEntries.slice().reverse();
+    var html = '';
+    sorted.forEach(function(entry) {
+      var dateObj = new Date(entry.createdAt);
+      var dateStr = dateObj.getFullYear() + '.' + (dateObj.getMonth() + 1) + '.' + dateObj.getDate();
+      var statusBadge = '';
+      var adminActions = '';
+      if (gbUnlocked) {
+        if (entry.approved) {
+          statusBadge = '<span style="font-size:11px;background:#d1fae5;color:#065f46;padding:2px 8px;border-radius:10px;margin-left:8px;">✓ 승인됨</span>';
+        } else {
+          statusBadge = '<span style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:10px;margin-left:8px;">⏳ 대기중</span>';
+        }
+        adminActions = '<div style="display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #e5e7eb;">';
+        if (!entry.approved) {
+          adminActions += '<button type="button" onclick="window._gbApprove(\'' + entry.id + '\')" style="font-size:12px;padding:4px 12px;background:var(--temple-green);color:#fff;border:none;border-radius:6px;cursor:pointer;">승인</button>';
+        } else {
+          adminActions += '<button type="button" onclick="window._gbUnapprove(\'' + entry.id + '\')" style="font-size:12px;padding:4px 12px;background:#f59e0b;color:#fff;border:none;border-radius:6px;cursor:pointer;">승인취소</button>';
+        }
+        adminActions += '<button type="button" onclick="window._gbDelete(\'' + entry.id + '\')" style="font-size:12px;padding:4px 12px;background:#ef4444;color:#fff;border:none;border-radius:6px;cursor:pointer;">삭제</button>';
+        adminActions += '</div>';
+      }
+      html += '<div class="gb-entry">' +
+        '<div class="gb-entry-header">' +
+        '<span class="gb-entry-name">🙏 ' + escapeHtml(entry.name) + statusBadge + '</span>' +
+        '<span class="gb-entry-date">' + dateStr + '</span>' +
+        '</div>' +
+        '<div class="gb-entry-text">' + escapeHtml(entry.content).replace(/\n/g, '<br>') + '</div>';
+      if (entry.reply) {
+        html += '<div class="gb-entry-reply">' +
+          '<div class="reply-header">🪷 스님의 답글</div>' +
+          '<div class="reply-text">' + escapeHtml(entry.reply).replace(/\n/g, '<br>') + '</div>' +
+          '</div>';
+      }
+      html += adminActions;
+      html += '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // Global functions for guestbook admin actions
+  window._gbApprove = function(id) {
+    var entries = getGuestbookEntries();
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].id === id) { entries[i].approved = true; break; }
+    }
+    saveGuestbookEntries(entries);
+    renderGuestbook();
+  };
+  window._gbUnapprove = function(id) {
+    var entries = getGuestbookEntries();
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].id === id) { entries[i].approved = false; break; }
+    }
+    saveGuestbookEntries(entries);
+    renderGuestbook();
+  };
+  window._gbDelete = function(id) {
+    if (!confirm('이 방명록을 삭제하시겠습니까?')) return;
+    var entries = getGuestbookEntries();
+    entries = entries.filter(function(e) { return e.id !== id; });
+    saveGuestbookEntries(entries);
+    renderGuestbook();
+  };
+
+  document.getElementById('gbSubmitBtn').addEventListener('click', function() {
+    var name = document.getElementById('gbName').value.trim();
+    var content = document.getElementById('gbContent').value.trim();
+    var msgEl = document.getElementById('gbMsg');
+    if (!name || !content) {
+      msgEl.textContent = '이름과 내용을 입력해주세요.';
+      msgEl.style.display = 'block';
+      msgEl.style.background = '#fef2f2'; msgEl.style.color = '#c64b4b';
+      setTimeout(function() { msgEl.style.display = 'none'; }, 3000);
+      return;
+    }
+    if (content.length > 500) {
+      msgEl.textContent = '내용은 500자 이내로 작성해주세요.';
+      msgEl.style.display = 'block';
+      msgEl.style.background = '#fef2f2'; msgEl.style.color = '#c64b4b';
+      setTimeout(function() { msgEl.style.display = 'none'; }, 3000);
+      return;
+    }
+    var entries = getGuestbookEntries();
+    entries.push({
+      id: Date.now().toString(36), name: name, content: content,
+      approved: false, reply: '', createdAt: new Date().toISOString()
+    });
+    saveGuestbookEntries(entries);
+    document.getElementById('gbName').value = '';
+    document.getElementById('gbContent').value = '';
+    msgEl.textContent = '🙏 방명록이 등록되었습니다! 관리자 확인 후 공개됩니다.';
+    msgEl.style.display = 'block';
+    msgEl.style.background = '#f0fdf4'; msgEl.style.color = '#166534';
+    setTimeout(function() { msgEl.style.display = 'none'; }, 4000);
+  });
+
+  // Guestbook Viewer Gate (password required to view)
+  var gbUnlocked = false;
+  document.getElementById('gbGateBtn').addEventListener('click', handleGbGate);
+  document.getElementById('gbGatePw').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') handleGbGate();
+  });
+
+  function handleGbGate() {
+    var pw = document.getElementById('gbGatePw').value;
+    if (pw === ADMIN_PASSWORD) {
+      gbUnlocked = true;
+      document.getElementById('gbViewerGate').style.display = 'none';
+      document.getElementById('gbEntries').style.display = 'flex';
+      renderGuestbook();
+    } else {
+      document.getElementById('gbGateErr').style.display = 'block';
+      setTimeout(function() { document.getElementById('gbGateErr').style.display = 'none'; }, 3000);
+    }
+  }
+
+  // Booking Admin Gate (password to manage bookings in public page)
+  var bkAdminFilter = 'all';
+  var bkAdminSearch = '';
+  var bkAdminOpenId = null;
+
+  document.getElementById('bkAdminGateBtn').addEventListener('click', handleBkAdminGate);
+  document.getElementById('bkAdminGatePw').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') handleBkAdminGate();
+  });
+
+  function handleBkAdminGate() {
+    var pw = document.getElementById('bkAdminGatePw').value;
+    if (pw === ADMIN_PASSWORD) {
+      document.getElementById('bkAdminGate').style.display = 'none';
+      document.getElementById('bkAdminPanel').style.display = 'block';
+      renderBkAdminList();
+    } else {
+      document.getElementById('bkAdminGateErr').style.display = 'block';
+      setTimeout(function() { document.getElementById('bkAdminGateErr').style.display = 'none'; }, 3000);
+    }
+  }
+
+  // Filter buttons
+  document.querySelectorAll('[data-bkfilter]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-bkfilter]').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      bkAdminFilter = btn.getAttribute('data-bkfilter');
+      renderBkAdminList();
+    });
+  });
+  document.getElementById('bkAdminSearch').addEventListener('input', function() {
+    bkAdminSearch = this.value.toLowerCase();
+    renderBkAdminList();
+  });
+
+  function renderBkAdminList() {
+    var bookings = getStore('guamsa_bookings') || [];
+    var container = document.getElementById('bkAdminList');
+    // Filter
+    var filtered = bookings;
+    if (bkAdminFilter !== 'all') {
+      filtered = filtered.filter(function(b) { return b.status === bkAdminFilter; });
+    }
+    if (bkAdminSearch) {
+      filtered = filtered.filter(function(b) {
+        return b.name.toLowerCase().indexOf(bkAdminSearch) > -1 ||
+               b.phone.toLowerCase().indexOf(bkAdminSearch) > -1;
+      });
+    }
+    if (filtered.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;">' +
+        (bookings.length === 0 ? '예약 내역이 없습니다.' : '조건에 맞는 예약이 없습니다.') + '</p>';
+      return;
+    }
+    var sorted = filtered.slice().reverse();
+    var html = '';
+    sorted.forEach(function(b) {
+      var statusText = b.status === 'pending' ? '대기중' : b.status === 'confirmed' ? '확인됨' : '취소됨';
+      var hasMemo = b.adminMemo ? ' 📋' : '';
+      var histCount = (b.consultHistory && b.consultHistory.length) ? ' 📜' + b.consultHistory.length : '';
+      html += '<div class="admin-booking-item" onclick="openBkAdminDetail(\'' + b.id + '\')">' +
+        '<div class="admin-booking-info">' +
+        '<h4>' + escapeHtml(b.name) + ' · ' + escapeHtml(b.type) +
+        '<span class="admin-booking-status ' + b.status + '">' + statusText + '</span>' + hasMemo + histCount + '</h4>' +
+        '<p>📅 ' + formatDate(b.date) + ' ' + b.time + ' · 📞 ' + escapeHtml(b.phone) +
+        (b.memo ? ' · 💬 ' + escapeHtml(b.memo) : '') + '</p>' +
+        '</div>' +
+        '<div class="admin-booking-actions" onclick="event.stopPropagation();">' +
+        (b.status === 'pending' ? '<button class="admin-btn confirm" onclick="bkAdminConfirm(\'' + b.id + '\')">확인</button>' : '') +
+        (b.status !== 'cancelled' ? '<button class="admin-btn cancel" onclick="bkAdminCancel(\'' + b.id + '\')">취소</button>' : '') +
+        '<button class="admin-btn delete" onclick="bkAdminDelete(\'' + b.id + '\')">삭제</button>' +
+        '</div></div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.openBkAdminDetail = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    var bk = null;
+    for (var i = 0; i < bookings.length; i++) {
+      if (bookings[i].id === id) { bk = bookings[i]; break; }
+    }
+    if (!bk) return;
+    bkAdminOpenId = id;
+    var panel = document.getElementById('bkAdminDetail');
+    var statusText = bk.status === 'pending' ? '대기중' : bk.status === 'confirmed' ? '확인됨' : '취소됨';
+    var histHtml = '';
+    if (bk.consultHistory && bk.consultHistory.length) {
+      bk.consultHistory.slice().reverse().forEach(function(h) {
+        var d = new Date(h.date);
+        histHtml += '<div class="abd-history-item"><div class="abd-history-date">' +
+          d.toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric'}) + ' ' +
+          d.toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'}) +
+          '</div><div class="abd-history-content">' + escapeHtml(h.content) + '</div></div>';
+      });
+    }
+    panel.innerHTML =
+      '<button type="button" class="abd-close" onclick="closeBkAdminDetail()">✕</button>' +
+      '<div class="abd-header"><h3>' + escapeHtml(bk.name) + '</h3><span class="admin-booking-status ' + bk.status + '">' + statusText + '</span></div>' +
+      '<div class="abd-type">' + escapeHtml(bk.type) + '</div>' +
+      '<div class="abd-info-grid">' +
+        '<div class="abd-info-item"><span class="abd-label">📅 예약일</span><span>' + formatDate(bk.date) + '</span></div>' +
+        '<div class="abd-info-item"><span class="abd-label">🕐 시간</span><span>' + bk.time + '</span></div>' +
+        '<div class="abd-info-item"><span class="abd-label">📞 연락처</span><span>' + escapeHtml(bk.phone) + '</span></div>' +
+        '<div class="abd-info-item"><span class="abd-label">📝 신청일</span><span>' + (bk.createdAt ? new Date(bk.createdAt).toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'}) : '-') + '</span></div>' +
+      '</div>' +
+      '<div class="abd-section"><h4>💬 고객 메모</h4><div class="abd-client-memo' + (!bk.memo || !bk.memo.trim() ? ' empty' : '') + '">' + (bk.memo && bk.memo.trim() ? escapeHtml(bk.memo) : '메모 없음') + '</div></div>' +
+      (bk.adminMemo ? '<div class="abd-section"><h4>📋 관리자 메모</h4><div class="abd-client-memo">' + escapeHtml(bk.adminMemo) + '</div></div>' : '') +
+      (histHtml ? '<div class="abd-section"><h4>📜 상담 이력</h4>' + histHtml + '</div>' : '') +
+      '<div class="abd-actions">' +
+        (bk.status === 'pending' ? '<button class="admin-btn confirm" onclick="bkAdminConfirm(\'' + id + '\');openBkAdminDetail(\'' + id + '\');">✅ 예약 확인</button>' : '') +
+        (bk.status !== 'cancelled' ? '<button class="admin-btn cancel" onclick="bkAdminCancel(\'' + id + '\');openBkAdminDetail(\'' + id + '\');">❌ 예약 취소</button>' : '') +
+        '<button class="admin-btn delete" onclick="bkAdminDelete(\'' + id + '\');">🗑️ 삭제</button>' +
+      '</div>';
+    panel.classList.add('show');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  window.closeBkAdminDetail = function() {
+    bkAdminOpenId = null;
+    document.getElementById('bkAdminDetail').classList.remove('show');
+  };
+
+  window.bkAdminConfirm = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'confirmed'; return b; });
+    setStore('guamsa_bookings', bookings);
+    renderBkAdminList();
+  };
+  window.bkAdminCancel = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'cancelled'; return b; });
+    setStore('guamsa_bookings', bookings);
+    renderBkAdminList();
+  };
+  window.bkAdminDelete = function(id) {
+    if (!confirm('이 예약을 삭제하시겠습니까?')) return;
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.filter(function(b) { return b.id !== id; });
+    setStore('guamsa_bookings', bookings);
+    renderBkAdminList();
+    if (bkAdminOpenId === id) closeBkAdminDetail();
+  };
+
+  // ===== ADMIN PANEL =====
+  var adminOverlay = document.getElementById('adminOverlay');
+  var adminLoggedIn = false;
+  var adminBkFilter = 'all';
+  var adminBkSearch = '';
+  var adminGbSearch = '';
+  var adminGbSelectedId = null;
+
+  document.getElementById('adminTrigger').addEventListener('click', function() { adminOverlay.classList.add('show'); });
+  document.getElementById('adminClose').addEventListener('click', function() { adminOverlay.classList.remove('show'); });
+  adminOverlay.addEventListener('click', function(e) { if (e.target === adminOverlay) adminOverlay.classList.remove('show'); });
+
+  // Admin Login
+  document.getElementById('adminLoginBtn').addEventListener('click', handleAdminLogin);
+  document.getElementById('adminPw').addEventListener('keypress', function(e) { if (e.key === 'Enter') handleAdminLogin(); });
+
+  function handleAdminLogin() {
+    if (document.getElementById('adminPw').value === ADMIN_PASSWORD) {
+      adminLoggedIn = true;
+      document.getElementById('adminLoginSection').style.display = 'none';
+      document.getElementById('adminDashSection').style.display = 'block';
+      renderAdminBookings();
+      renderAdminGuestbook();
+      initAdminAvailability();
+      initAdminBookingCal();
+    } else {
+      document.getElementById('adminLoginErr').style.display = 'block';
+    }
+  }
+
+  // Admin Tabs
+  document.querySelectorAll('.admin-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.admin-content').forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  // ===== ADMIN: BOOKING STATS =====
+  function renderAdminBookingStats() {
+    var bookings = getStore('guamsa_bookings') || [];
+    var total = bookings.length;
+    var pending = bookings.filter(function(b) { return b.status === 'pending'; }).length;
+    var confirmed = bookings.filter(function(b) { return b.status === 'confirmed'; }).length;
+    var cancelled = bookings.filter(function(b) { return b.status === 'cancelled'; }).length;
+    document.getElementById('adminBookingStats').innerHTML =
+      '<div class="admin-stat-card stat-total"><div class="admin-stat-value">' + total + '</div><div class="admin-stat-label">전체 예약</div></div>' +
+      '<div class="admin-stat-card stat-pending"><div class="admin-stat-value">' + pending + '</div><div class="admin-stat-label">대기중</div></div>' +
+      '<div class="admin-stat-card stat-confirmed"><div class="admin-stat-value">' + confirmed + '</div><div class="admin-stat-label">확인됨</div></div>' +
+      '<div class="admin-stat-card stat-cancelled"><div class="admin-stat-value">' + cancelled + '</div><div class="admin-stat-label">취소됨</div></div>';
+  }
+
+  // ===== ADMIN: BOOKING FILTER & SEARCH =====
+  document.querySelectorAll('.admin-filter-btn[data-filter]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.admin-filter-btn[data-filter]').forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      adminBkFilter = this.getAttribute('data-filter');
+      renderAdminBookings();
+    });
+  });
+  document.getElementById('adminBookingSearch').addEventListener('input', function() {
+    adminBkSearch = this.value.trim().toLowerCase();
+    renderAdminBookings();
+  });
+
+  // ===== ADMIN: BOOKING CALENDAR (with booking count) =====
+  var adminBkCalYear, adminBkCalMonth, adminBkSelectedDate = null;
+
+  function initAdminBookingCal() {
+    adminBkCalYear = today.getFullYear();
+    adminBkCalMonth = today.getMonth();
+    renderAdminBookingCal();
+    document.getElementById('adminBkCalPrev').addEventListener('click', function() {
+      adminBkCalMonth--; if (adminBkCalMonth < 0) { adminBkCalMonth = 11; adminBkCalYear--; }
+      renderAdminBookingCal();
+    });
+    document.getElementById('adminBkCalNext').addEventListener('click', function() {
+      adminBkCalMonth++; if (adminBkCalMonth > 11) { adminBkCalMonth = 0; adminBkCalYear++; }
+      renderAdminBookingCal();
+    });
+  }
+
+  function getBookingsByDate(dateKey) {
+    var bookings = getStore('guamsa_bookings') || [];
+    return bookings.filter(function(b) { return b.date === dateKey && b.status !== 'cancelled'; });
+  }
+
+  function renderAdminBookingCal() {
+    var title = document.getElementById('adminBkCalTitle');
+    var grid = document.getElementById('adminBkCalGrid');
+    title.textContent = adminBkCalYear + '년 ' + (adminBkCalMonth + 1) + '월';
+    var firstDay = new Date(adminBkCalYear, adminBkCalMonth, 1).getDay();
+    var lastDate = new Date(adminBkCalYear, adminBkCalMonth + 1, 0).getDate();
+    var todayStr = getDateKey(today.getFullYear(), today.getMonth(), today.getDate());
+    var html = '';
+    for (var e = 0; e < firstDay; e++) html += '<div class="booking-cal-day empty"></div>';
+    for (var d = 1; d <= lastDate; d++) {
+      var dk = getDateKey(adminBkCalYear, adminBkCalMonth, d);
+      var cls = 'booking-cal-day';
+      if (dk === todayStr) cls += ' today';
+      if (adminBkSelectedDate === dk) cls += ' selected';
+      var bkCount = getBookingsByDate(dk).length;
+      var countHtml = bkCount > 0 ? '<span class="cal-booking-count">' + bkCount + '</span>' : '';
+      if (bkCount > 0) cls += ' has-bookings';
+      html += '<div class="' + cls + '" data-date="' + dk + '">' + d + countHtml + '</div>';
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.booking-cal-day:not(.empty)').forEach(function(el) {
+      el.addEventListener('click', function() {
+        adminBkSelectedDate = this.getAttribute('data-date');
+        renderAdminBookingCal();
+        renderAdminDateBookings();
+      });
+    });
+  }
+
+  function renderAdminDateBookings() {
+    var container = document.getElementById('adminDateBookings');
+    var titleEl = document.getElementById('adminDateBkTitle');
+    var list = document.getElementById('adminDateBkList');
+    if (!adminBkSelectedDate) { container.classList.remove('show'); return; }
+    container.classList.add('show');
+    var allBk = (getStore('guamsa_bookings') || []).filter(function(b) { return b.date === adminBkSelectedDate; });
+    titleEl.textContent = '📅 ' + formatDate(adminBkSelectedDate) + ' 예약 (' + allBk.length + '건)';
+    if (allBk.length === 0) {
+      list.innerHTML = '<p style="font-size:13px;color:var(--text-light);padding:8px;">해당 날짜에 예약이 없습니다.</p>';
+      return;
+    }
+    var html = '';
+    allBk.forEach(function(b) {
+      var statusText = b.status === 'pending' ? '⏳ 대기' : b.status === 'confirmed' ? '✅ 확인' : '❌ 취소';
+      var hasMemo = b.adminMemo ? ' 📋' : '';
+      var histCount = (b.consultHistory && b.consultHistory.length) ? ' 📜' + b.consultHistory.length : '';
+      html += '<div class="admin-date-booking-item status-' + b.status + '" style="cursor:pointer;" onclick="openBookingDetail(\'' + b.id + '\')">' +
+        '<div class="adb-info">' +
+        '<span class="adb-name">' + escapeHtml(b.name) + '</span> · ' + b.time + ' · ' + escapeHtml(b.type) + ' ' + statusText + hasMemo + histCount +
+        '<div class="adb-detail">📞 ' + escapeHtml(b.phone) + (b.memo ? ' · ' + escapeHtml(b.memo) : '') + '</div>' +
+        '</div>' +
+        '<div class="admin-booking-actions" onclick="event.stopPropagation();">' +
+        (b.status === 'pending' ? '<button class="admin-btn confirm" onclick="confirmBooking(\'' + b.id + '\');renderAfterBookingChange();">확인</button>' : '') +
+        (b.status !== 'cancelled' ? '<button class="admin-btn cancel" onclick="cancelBooking(\'' + b.id + '\');renderAfterBookingChange();">취소</button>' : '') +
+        '</div></div>';
+    });
+    list.innerHTML = html;
+  }
+
+  window.renderAfterBookingChange = function() {
+    renderAdminBookingStats();
+    renderAdminBookingCal();
+    renderAdminDateBookings();
+    renderAdminBookings();
+    // Refresh detail panel if open
+    if (currentDetailBookingId) {
+      var panel = document.getElementById('adminBookingDetail');
+      if (panel.classList.contains('show')) {
+        openBookingDetail(currentDetailBookingId);
+      }
+    }
+  };
+
+  // ===== ADMIN: BOOKINGS LIST =====
+  function renderAdminBookings() {
+    renderAdminBookingStats();
+    var bookings = getStore('guamsa_bookings') || [];
+    var container = document.getElementById('adminBookingList');
+
+    // Filter
+    var filtered = bookings;
+    if (adminBkFilter !== 'all') {
+      filtered = filtered.filter(function(b) { return b.status === adminBkFilter; });
+    }
+    // Search
+    if (adminBkSearch) {
+      filtered = filtered.filter(function(b) {
+        return b.name.toLowerCase().indexOf(adminBkSearch) > -1 ||
+               b.phone.toLowerCase().indexOf(adminBkSearch) > -1 ||
+               (b.memo && b.memo.toLowerCase().indexOf(adminBkSearch) > -1);
+      });
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;">' +
+        (bookings.length === 0 ? '예약 내역이 없습니다.' : '조건에 맞는 예약이 없습니다.') + '</p>';
+      return;
+    }
+
+    var sorted = filtered.slice().reverse();
+    var html = '';
+    sorted.forEach(function(b) {
+      var statusText = b.status === 'pending' ? '대기중' : b.status === 'confirmed' ? '확인됨' : '취소됨';
+      var hasMemo = b.adminMemo ? ' 📋' : '';
+      var histCount = (b.consultHistory && b.consultHistory.length) ? ' 📜' + b.consultHistory.length : '';
+      html += '<div class="admin-booking-item" data-id="' + b.id + '" onclick="openBookingDetail(\'' + b.id + '\')">' +
+        '<div class="admin-booking-info">' +
+        '<h4>' + escapeHtml(b.name) + ' · ' + escapeHtml(b.type) +
+        '<span class="admin-booking-status ' + b.status + '">' + statusText + '</span>' + hasMemo + histCount + '</h4>' +
+        '<p>📅 ' + formatDate(b.date) + ' ' + b.time + ' · 📞 ' + escapeHtml(b.phone) +
+        (b.memo ? ' · 💬 ' + escapeHtml(b.memo) : '') + '</p>' +
+        '</div>' +
+        '<div class="admin-booking-actions" onclick="event.stopPropagation();">' +
+        (b.status === 'pending' ? '<button class="admin-btn confirm" onclick="confirmBooking(\'' + b.id + '\')">확인</button>' : '') +
+        (b.status !== 'cancelled' ? '<button class="admin-btn cancel" onclick="cancelBooking(\'' + b.id + '\')">취소</button>' : '') +
+        '<button class="admin-btn delete" onclick="deleteBooking(\'' + b.id + '\')">삭제</button>' +
+        '</div></div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.confirmBooking = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'confirmed'; return b; });
+    setStore('guamsa_bookings', bookings);
+    renderAdminBookings();
+  };
+  window.cancelBooking = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'cancelled'; return b; });
+    setStore('guamsa_bookings', bookings);
+    renderAdminBookings();
+  };
+  window.deleteBooking = function(id) {
+    if (!confirm('이 예약을 삭제하시겠습니까?')) return;
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.filter(function(b) { return b.id !== id; });
+    setStore('guamsa_bookings', bookings);
+    renderAdminBookings();
+    renderAdminBookingCal();
+    // Close detail panel if this booking was open
+    if (currentDetailBookingId === id) {
+      closeBookingDetail();
+    }
+  };
+
+  // ===== ADMIN: BOOKING DETAIL =====
+  var currentDetailBookingId = null;
+
+  window.openBookingDetail = function(id) {
+    var bookings = getStore('guamsa_bookings') || [];
+    var bk = null;
+    for (var i = 0; i < bookings.length; i++) {
+      if (bookings[i].id === id) { bk = bookings[i]; break; }
+    }
+    if (!bk) return;
+
+    currentDetailBookingId = id;
+    var panel = document.getElementById('adminBookingDetail');
+
+    // Fill header
+    document.getElementById('abdName').textContent = bk.name;
+    var statusEl = document.getElementById('abdStatus');
+    var statusText = bk.status === 'pending' ? '대기중' : bk.status === 'confirmed' ? '확인됨' : '취소됨';
+    statusEl.textContent = statusText;
+    statusEl.className = 'admin-booking-status ' + bk.status;
+
+    // Type
+    document.getElementById('abdType').textContent = bk.type;
+
+    // Info grid
+    document.getElementById('abdDate').textContent = formatDate(bk.date);
+    document.getElementById('abdTime').textContent = bk.time;
+    document.getElementById('abdPhone').textContent = bk.phone;
+    document.getElementById('abdCreated').textContent = bk.createdAt ? new Date(bk.createdAt).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+
+    // Client memo
+    var clientMemoEl = document.getElementById('abdClientMemo');
+    if (bk.memo && bk.memo.trim()) {
+      clientMemoEl.textContent = bk.memo;
+      clientMemoEl.classList.remove('empty');
+    } else {
+      clientMemoEl.textContent = '메모 없음';
+      clientMemoEl.classList.add('empty');
+    }
+
+    // Admin memo
+    document.getElementById('abdAdminMemo').value = bk.adminMemo || '';
+
+    // Consult history
+    renderConsultHistory(bk.consultHistory || []);
+
+    // Actions
+    var actionsHtml = '';
+    if (bk.status === 'pending') {
+      actionsHtml += '<button class="admin-btn confirm" onclick="event.stopPropagation();confirmBooking(\'' + id + '\');renderAfterBookingChange();">✅ 예약 확인</button>';
+    }
+    if (bk.status !== 'cancelled') {
+      actionsHtml += '<button class="admin-btn cancel" onclick="event.stopPropagation();cancelBooking(\'' + id + '\');renderAfterBookingChange();">❌ 예약 취소</button>';
+    }
+    actionsHtml += '<button class="admin-btn delete" onclick="event.stopPropagation();deleteBooking(\'' + id + '\');">🗑️ 삭제</button>';
+    document.getElementById('abdActions').innerHTML = actionsHtml;
+
+    // Show panel
+    panel.classList.add('show');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  function closeBookingDetail() {
+    currentDetailBookingId = null;
+    document.getElementById('adminBookingDetail').classList.remove('show');
+  }
+
+  function saveAdminMemo() {
+    if (!currentDetailBookingId) return;
+    var bookings = getStore('guamsa_bookings') || [];
+    var memoVal = document.getElementById('abdAdminMemo').value;
+    bookings = bookings.map(function(b) {
+      if (b.id === currentDetailBookingId) b.adminMemo = memoVal;
+      return b;
+    });
+    setStore('guamsa_bookings', bookings);
+    // Show saved indicator
+    var savedEl = document.getElementById('abdMemoSaved');
+    savedEl.classList.add('show');
+    setTimeout(function() { savedEl.classList.remove('show'); }, 2000);
+    // Refresh lists to show memo icon
+    renderAdminBookings();
+    renderAdminDateBookings();
+  }
+
+  function addConsultHistory() {
+    if (!currentDetailBookingId) return;
+    var input = document.getElementById('abdHistoryInput');
+    var content = input.value.trim();
+    if (!content) return;
+
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) {
+      if (b.id === currentDetailBookingId) {
+        if (!b.consultHistory) b.consultHistory = [];
+        b.consultHistory.push({
+          date: new Date().toISOString(),
+          content: content
+        });
+      }
+      return b;
+    });
+    setStore('guamsa_bookings', bookings);
+    input.value = '';
+
+    // Re-render history
+    var bk = null;
+    for (var i = 0; i < bookings.length; i++) {
+      if (bookings[i].id === currentDetailBookingId) { bk = bookings[i]; break; }
+    }
+    if (bk) renderConsultHistory(bk.consultHistory || []);
+    // Refresh lists to show history icon
+    renderAdminBookings();
+    renderAdminDateBookings();
+  }
+
+  function renderConsultHistory(history) {
+    var container = document.getElementById('abdHistoryList');
+    if (!history || history.length === 0) {
+      container.innerHTML = '<div class="abd-history-empty">아직 상담 이력이 없습니다.</div>';
+      return;
+    }
+    var html = '';
+    // Show newest first
+    var sorted = history.slice().reverse();
+    sorted.forEach(function(h, rIdx) {
+      var realIdx = history.length - 1 - rIdx;
+      var d = new Date(h.date);
+      var dateStr = d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' }) +
+                    ' ' + d.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+      html += '<div class="abd-history-item">' +
+        '<div class="abd-history-date">' + dateStr + '</div>' +
+        '<div class="abd-history-content">' + escapeHtml(h.content) + '</div>' +
+        '<button class="abd-history-delete" onclick="event.stopPropagation();deleteConsultHistory(' + realIdx + ');" title="삭제">✕</button>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.deleteConsultHistory = function(historyIndex) {
+    if (!currentDetailBookingId) return;
+    if (!confirm('이 상담 이력을 삭제하시겠습니까?')) return;
+    var bookings = getStore('guamsa_bookings') || [];
+    bookings = bookings.map(function(b) {
+      if (b.id === currentDetailBookingId && b.consultHistory) {
+        b.consultHistory.splice(historyIndex, 1);
+      }
+      return b;
+    });
+    setStore('guamsa_bookings', bookings);
+    var bk = null;
+    for (var i = 0; i < bookings.length; i++) {
+      if (bookings[i].id === currentDetailBookingId) { bk = bookings[i]; break; }
+    }
+    if (bk) renderConsultHistory(bk.consultHistory || []);
+    renderAdminBookings();
+    renderAdminDateBookings();
+  };
+
+  // Booking detail event listeners
+  document.getElementById('abdClose').addEventListener('click', closeBookingDetail);
+  document.getElementById('abdMemoSave').addEventListener('click', saveAdminMemo);
+  document.getElementById('abdHistoryAdd').addEventListener('click', addConsultHistory);
+
+  // ===== ADMIN: AVAILABILITY =====
+  var adminCalYear, adminCalMonth, adminSelectedDate = null;
+
+  function initAdminAvailability() {
+    adminCalYear = today.getFullYear();
+    adminCalMonth = today.getMonth();
+    renderAdminCal();
+    document.getElementById('adminCalPrev').addEventListener('click', function() {
+      adminCalMonth--; if (adminCalMonth < 0) { adminCalMonth = 11; adminCalYear--; } renderAdminCal();
+    });
+    document.getElementById('adminCalNext').addEventListener('click', function() {
+      adminCalMonth++; if (adminCalMonth > 11) { adminCalMonth = 0; adminCalYear++; } renderAdminCal();
+    });
+    document.getElementById('adminAvailSave').addEventListener('click', saveAdminAvailability);
+  }
+
+  function renderAdminCal() {
+    var title = document.getElementById('adminCalTitle');
+    var grid = document.getElementById('adminCalGrid');
+    title.textContent = adminCalYear + '년 ' + (adminCalMonth + 1) + '월';
+    var firstDay = new Date(adminCalYear, adminCalMonth, 1).getDay();
+    var lastDate = new Date(adminCalYear, adminCalMonth + 1, 0).getDate();
+    var html = '';
+    for (var e = 0; e < firstDay; e++) html += '<div class="booking-cal-day empty"></div>';
+    for (var d = 1; d <= lastDate; d++) {
+      var dk = getDateKey(adminCalYear, adminCalMonth, d);
+      var cls = 'booking-cal-day';
+      if (adminSelectedDate === dk) cls += ' selected';
+      if (isDateFullyUnavailable(dk)) cls += ' fully-unavailable';
+      if (availabilityData[dk]) {
+        var someBlocked = false;
+        for (var t in availabilityData[dk]) { if (availabilityData[dk][t] === false) { someBlocked = true; break; } }
+        if (someBlocked && !isDateFullyUnavailable(dk)) cls += ' has-unavailable';
+      }
+      html += '<div class="' + cls + '" data-date="' + dk + '">' + d + '</div>';
+    }
+    grid.innerHTML = html;
+    grid.querySelectorAll('.booking-cal-day:not(.empty)').forEach(function(el) {
+      el.addEventListener('click', function() {
+        adminSelectedDate = this.getAttribute('data-date');
+        renderAdminCal();
+        renderAdminTimeToggles();
+      });
+    });
+  }
+
+  function renderAdminTimeToggles() {
+    var container = document.getElementById('adminTimeToggles');
+    var titleEl = document.getElementById('adminTimeTitle');
+    var list = document.getElementById('adminToggleList');
+    if (!adminSelectedDate) { container.classList.remove('show'); return; }
+    container.classList.add('show');
+    titleEl.textContent = formatDate(adminSelectedDate) + ' 시간대 설정';
+    var html = '';
+    TIME_SLOTS.forEach(function(s) {
+      var checked = isSlotAvailable(adminSelectedDate, s.value);
+      html += '<div class="toggle-row">' +
+        '<span class="toggle-label">' + s.label + '</span>' +
+        '<label class="toggle-switch">' +
+        '<input type="checkbox" data-time="' + s.value + '"' + (checked ? ' checked' : '') + '>' +
+        '<span class="toggle-slider"></span></label></div>';
+    });
+    list.innerHTML = html;
+    document.getElementById('adminAvailStatus').textContent = '';
+  }
+
+  function saveAdminAvailability() {
+    if (!adminSelectedDate) return;
+    var toggles = document.getElementById('adminToggleList').querySelectorAll('input[type="checkbox"]');
+    if (!availabilityData[adminSelectedDate]) availabilityData[adminSelectedDate] = {};
+    toggles.forEach(function(toggle) {
+      availabilityData[adminSelectedDate][toggle.getAttribute('data-time')] = toggle.checked;
+    });
+    setStore('guamsa_availability', availabilityData);
+    document.getElementById('adminAvailStatus').textContent = '✅ 저장되었습니다!';
+    renderAdminCal();
+    renderBookingCal();
+    renderBookingTimeSlots();
+    setTimeout(function() { document.getElementById('adminAvailStatus').textContent = ''; }, 3000);
+  }
+
+  // ===== ADMIN: GUESTBOOK MANAGEMENT =====
+  document.getElementById('adminGbSearch').addEventListener('input', function() {
+    adminGbSearch = this.value.trim().toLowerCase();
+    renderAdminGuestbook();
+  });
+
+  function renderAdminGuestbook() {
+    var entries = getGuestbookEntries();
+    var container = document.getElementById('adminGbList');
+    document.getElementById('adminGbCount').textContent = '총 ' + entries.length + '건';
+
+    // Filter by search
+    var filtered = entries;
+    if (adminGbSearch) {
+      filtered = filtered.filter(function(e) {
+        return e.name.toLowerCase().indexOf(adminGbSearch) > -1 ||
+               e.content.toLowerCase().indexOf(adminGbSearch) > -1;
+      });
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;">' +
+        (entries.length === 0 ? '방명록이 없습니다.' : '검색 결과가 없습니다.') + '</p>';
+      return;
+    }
+
+    var sorted = filtered.slice().reverse();
+    var html = '';
+    sorted.forEach(function(entry) {
+      var dateObj = new Date(entry.createdAt);
+      var dateStr = dateObj.getFullYear() + '.' + (dateObj.getMonth() + 1) + '.' + dateObj.getDate();
+      var approvedBadge = entry.approved ?
+        '<span style="background:#D4EDDA;color:#155724;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600;margin-left:6px;">공개</span>' :
+        '<span style="background:#FFF3CD;color:#856404;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600;margin-left:6px;">비공개</span>';
+      var replyIcon = entry.reply ? ' 💬' : '';
+      html += '<div class="admin-booking-item" data-gbid="' + entry.id + '">' +
+        '<div class="admin-booking-info" style="cursor:pointer;" onclick="openGbDetail(\'' + entry.id + '\')">' +
+        '<h4>' + escapeHtml(entry.name) + approvedBadge + replyIcon + '</h4>' +
+        '<p>' + dateStr + ' · ' + escapeHtml(entry.content).substring(0, 60) + (entry.content.length > 60 ? '...' : '') + '</p>' +
+        '</div>' +
+        '<div class="admin-booking-actions">' +
+        (entry.approved ?
+          '<button class="admin-btn cancel" onclick="toggleGbApproval(\'' + entry.id + '\',false)">비공개</button>' :
+          '<button class="admin-btn confirm" onclick="toggleGbApproval(\'' + entry.id + '\',true)">공개</button>') +
+        '<button class="admin-btn delete" onclick="deleteGuestbook(\'' + entry.id + '\')">삭제</button>' +
+        '</div></div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.openGbDetail = function(id) {
+    var entries = getGuestbookEntries();
+    var entry = entries.find(function(e) { return e.id === id; });
+    if (!entry) return;
+    adminGbSelectedId = id;
+    var detail = document.getElementById('adminGbDetail');
+    detail.classList.add('show');
+    var dateObj = new Date(entry.createdAt);
+    var dateStr = dateObj.getFullYear() + '년 ' + (dateObj.getMonth() + 1) + '월 ' + dateObj.getDate() + '일';
+    document.getElementById('adminGbDetailTitle').textContent = '🙏 ' + entry.name + '님의 방명록';
+    document.getElementById('adminGbDetailContent').textContent = entry.content;
+    document.getElementById('adminGbDetailDate').textContent = '작성일: ' + dateStr;
+    // Show existing reply
+    if (entry.reply) {
+      document.getElementById('adminGbExistingReply').innerHTML =
+        '<div class="gb-entry-reply"><div class="reply-header">🪷 현재 답글</div>' +
+        '<div class="reply-text">' + escapeHtml(entry.reply).replace(/\n/g, '<br>') + '</div></div>';
+      document.getElementById('adminGbReplyInput').value = entry.reply;
+    } else {
+      document.getElementById('adminGbExistingReply').innerHTML = '';
+      document.getElementById('adminGbReplyInput').value = '';
+    }
+    // Scroll to detail
+    detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  document.getElementById('adminGbReplyBtn').addEventListener('click', function() {
+    if (!adminGbSelectedId) return;
+    var replyText = document.getElementById('adminGbReplyInput').value.trim();
+    var entries = getGuestbookEntries();
+    entries = entries.map(function(e) {
+      if (e.id === adminGbSelectedId) {
+        e.reply = replyText;
+        if (replyText) e.approved = true; // Auto-approve when replying
+      }
+      return e;
+    });
+    saveGuestbookEntries(entries);
+    renderAdminGuestbook();
+    renderGuestbook();
+    // Update detail view
+    window.openGbDetail(adminGbSelectedId);
+    alert(replyText ? '답글이 등록되었습니다! (자동 공개 처리됨)' : '답글이 삭제되었습니다.');
+  });
+
+  window.toggleGbApproval = function(id, approved) {
+    var entries = getGuestbookEntries();
+    entries = entries.map(function(e) { if (e.id === id) e.approved = approved; return e; });
+    saveGuestbookEntries(entries);
+    renderAdminGuestbook();
+    renderGuestbook();
+  };
+
+  window.deleteGuestbook = function(id) {
+    if (!confirm('이 방명록을 삭제하시겠습니까?')) return;
+    var entries = getGuestbookEntries().filter(function(e) { return e.id !== id; });
+    saveGuestbookEntries(entries);
+    if (adminGbSelectedId === id) {
+      adminGbSelectedId = null;
+      document.getElementById('adminGbDetail').classList.remove('show');
+    }
+    renderAdminGuestbook();
+    renderGuestbook();
+  };
+
+  // ===== SMOOTH SCROLL =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 60, behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
