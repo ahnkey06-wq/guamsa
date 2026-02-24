@@ -141,7 +141,7 @@ body {
 }
 @keyframes gentlePulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.05); 
 }
 .hero h1 {
   font-size: 52px; font-weight: 800; color: var(--temple-gold);
@@ -1069,11 +1069,6 @@ body {
         </div>
         <div class="booking-cal-grid" id="bkCalGrid"></div>
       </div>
-      <!-- Time Slots -->
-      <div class="booking-time-slots" id="bkTimeSlots">
-        <h4 id="bkTimeHeader">시간 선택</h4>
-        <div class="time-btn-grid" id="bkTimeBtns"></div>
-      </div>
       <div class="form-group">
         <label>요청사항</label>
         <textarea id="bkMemo" placeholder="생년월일시, 상담 관련 메모 등"></textarea>
@@ -1487,7 +1482,7 @@ document.addEventListener('keydown', function(e) {
   });
 
   // ===== BOOKING CALENDAR (PUBLIC) =====
-  var bkCalYear, bkCalMonth, bkSelectedDate = null, bkSelectedTime = null;
+  var bkCalYear, bkCalMonth, bkSelectedDate = null;
   var today = new Date();
   bkCalYear = today.getFullYear();
   bkCalMonth = today.getMonth();
@@ -1522,35 +1517,7 @@ document.addEventListener('keydown', function(e) {
       el.addEventListener('click', function() {
         var parts = this.getAttribute('data-date').split('-');
         bkSelectedDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-        bkSelectedTime = null;
-        renderBookingCal();
-        renderBookingTimeSlots();
-      });
-    });
-  }
-
-  function renderBookingTimeSlots() {
-    var section = document.getElementById('bkTimeSlots');
-    var header = document.getElementById('bkTimeHeader');
-    var btns = document.getElementById('bkTimeBtns');
-    if (!bkSelectedDate) { section.classList.remove('show'); return; }
-    section.classList.add('show');
-    var dk = getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate());
-    header.textContent = formatDate(dk) + ' 시간 선택';
-    var html = '';
-    for (var i = 0; i < TIME_SLOTS.length; i++) {
-      var s = TIME_SLOTS[i];
-      var unavail = !isSlotAvailable(dk, s.value);
-      var cls = 'time-btn';
-      if (unavail) cls += ' unavailable';
-      else if (bkSelectedTime === s.value) cls += ' selected';
-      html += '<button type="button" class="' + cls + '" data-time="' + s.value + '"' + (unavail ? ' disabled' : '') + '>' + s.label + '</button>';
-    }
-    btns.innerHTML = html;
-    btns.querySelectorAll('.time-btn:not(.unavailable)').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        bkSelectedTime = this.getAttribute('data-time');
-        renderBookingTimeSlots();
+            renderBookingCal();
       });
     });
   }
@@ -1572,19 +1539,19 @@ document.addEventListener('keydown', function(e) {
     var memo = document.getElementById('bkMemo').value.trim();
     var msg = document.getElementById('bkMsg');
     if (!name || !phone || !type) { msg.className = 'booking-msg error'; msg.textContent = '모든 필수 항목을 입력해주세요.'; return; }
-    if (!bkSelectedDate || !bkSelectedTime) { msg.className = 'booking-msg error'; msg.textContent = '날짜와 시간을 선택해주세요.'; return; }
+    if (!bkSelectedDate) { msg.className = 'booking-msg error'; msg.textContent = '예약 날짜를 선택해주세요.'; return; }
     var dk = getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate());
     var bookings = getStore('guamsa_bookings') || [];
     bookings.push({
       id: Date.now().toString(36), name: name, phone: phone, type: type,
-      date: dk, time: bkSelectedTime, memo: memo, status: 'pending',
+      date: dk, memo: memo, status: 'pending',
       createdAt: new Date().toISOString()
     });
     setStore('guamsa_bookings', bookings);
     msg.className = 'booking-msg success';
     msg.textContent = '✅ 예약이 접수되었습니다! 확인 후 연락드리겠습니다.';
     document.getElementById('bookingForm').reset();
-    bkSelectedDate = null; bkSelectedTime = null;
+    bkSelectedDate = null;
     renderBookingCal();
     document.getElementById('bkTimeSlots').classList.remove('show');
     setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
@@ -2351,7 +2318,6 @@ document.addEventListener('keydown', function(e) {
     document.getElementById('adminAvailStatus').textContent = '✅ 저장되었습니다!';
     renderAdminCal();
     renderBookingCal();
-    renderBookingTimeSlots();
     setTimeout(function() { document.getElementById('adminAvailStatus').textContent = ''; }, 3000);
   }
 
