@@ -188,15 +188,52 @@ body {
   align-items: center;
 }
 .about-image {
-  background: linear-gradient(135deg, var(--temple-beige), var(--temple-stone));
-  border-radius: var(--radius); height: 380px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 120px; position: relative; overflow: hidden;
+  border-radius: var(--radius);
+  position: relative; overflow: hidden;
 }
-.about-image::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
-  background: linear-gradient(to top, rgba(59,45,31,0.15), transparent);
+.about-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 150px;
+  gap: 8px;
+}
+.about-gallery img {
+  width: 100%; height: 100%;
+  object-fit: cover; border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.about-gallery img:hover { transform: scale(1.03); }
+.about-gallery img:first-child {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  height: 200px;
+}
+/* 사진 라이트박스 */
+.photo-lightbox {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9); z-index: 10000;
+  align-items: center; justify-content: center; flex-direction: column;
+}
+.photo-lightbox.active { display: flex; }
+.photo-lightbox img {
+  max-width: 90%; max-height: 80vh; border-radius: 10px; object-fit: contain;
+}
+.photo-lightbox .lb-close {
+  position: absolute; top: 20px; right: 24px;
+  font-size: 32px; color: #fff; cursor: pointer; background: none; border: none;
+  z-index: 10001;
+}
+.photo-lightbox .lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-size: 36px; color: #fff; cursor: pointer; background: rgba(255,255,255,0.15);
+  border: none; border-radius: 50%; width: 50px; height: 50px;
+  display: flex; align-items: center; justify-content: center;
+}
+.photo-lightbox .lb-prev { left: 16px; }
+.photo-lightbox .lb-next { right: 16px; }
+.photo-lightbox .lb-counter {
+  color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 12px;
 }
 .about-text h3 {
   font-size: 24px; color: var(--temple-dark); margin-bottom: 16px;
@@ -852,7 +889,8 @@ body {
   .hero h1 { font-size: 36px; letter-spacing: 4px; }
   .hero-desc { font-size: 15px; }
   .about-grid { grid-template-columns: 1fr; }
-  .about-image { height: 240px; }
+  .about-gallery { grid-template-rows: 160px 120px; }
+  .about-gallery img:first-child { height: 160px; }
   .fortune-cards { grid-template-columns: 1fr; }
   .location-grid { grid-template-columns: 1fr; }
   .location-map { height: 250px; }
@@ -917,7 +955,23 @@ body {
     <p>거북바위의 기운이 서린 정선의 마음 쉼터</p>
   </div>
   <div class="about-grid">
-    <div class="about-image">🏔️</div>
+    <div class="about-image">
+      <div class="about-gallery">
+        <img src="images/temple-1.jpeg" alt="구암사 전경" onclick="openLightbox(0)">
+        <img src="images/temple-2.jpeg" alt="구암사 풍경" onclick="openLightbox(1)">
+        <img src="images/temple-3.jpeg" alt="구암사 내부" onclick="openLightbox(2)">
+        <img src="images/temple-4.jpeg" alt="구암사 자연" onclick="openLightbox(3)">
+        <img src="images/temple-5.jpeg" alt="구암사 전경" onclick="openLightbox(4)">
+      </div>
+    </div>
+    <!-- 사진 라이트박스 -->
+    <div class="photo-lightbox" id="photoLightbox">
+      <button class="lb-close" onclick="closeLightbox()">✕</button>
+      <button class="lb-nav lb-prev" onclick="navLightbox(-1)">‹</button>
+      <button class="lb-nav lb-next" onclick="navLightbox(1)">›</button>
+      <img id="lbImage" src="" alt="구암사 사진">
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
     <div class="about-text">
       <h3>거북바위 아래, 천년의 기도</h3>
       <p>
@@ -1323,6 +1377,34 @@ body {
    - 운명상담 예약 (캘린더 예약건수 표시 + 통계 + 필터)
    - 관리자 예약/가용시간 관리
    ============================================================= */
+
+// ===== 사진 라이트박스 =====
+var lbImages = [
+  'images/temple-1.jpeg','images/temple-2.jpeg','images/temple-3.jpeg',
+  'images/temple-4.jpeg','images/temple-5.jpeg'
+];
+var lbIndex = 0;
+function openLightbox(i) {
+  lbIndex = i;
+  document.getElementById('lbImage').src = lbImages[lbIndex];
+  document.getElementById('lbCounter').textContent = (lbIndex+1) + ' / ' + lbImages.length;
+  document.getElementById('photoLightbox').classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('photoLightbox').classList.remove('active');
+}
+function navLightbox(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lbImage').src = lbImages[lbIndex];
+  document.getElementById('lbCounter').textContent = (lbIndex+1) + ' / ' + lbImages.length;
+}
+document.addEventListener('keydown', function(e) {
+  var lb = document.getElementById('photoLightbox');
+  if (!lb.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
 
 (function() {
   'use strict';
