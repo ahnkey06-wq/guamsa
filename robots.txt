@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://정선구암사.com/sitemap.xml
