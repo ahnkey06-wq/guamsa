@@ -914,6 +914,9 @@ body {
   .admin-panel { padding: 20px; width: 95%; }
 }
 </style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -1373,11 +1376,24 @@ body {
 
 <script>
 /* =============================================================
-   구암사 홈페이지 JavaScript v2
+   구암사 홈페이지 JavaScript v3
+   - Firebase Firestore 연동
    - 방명록 (관리자만 열람 가능 + 답글 + 공개 설정)
    - 운명상담 예약 (캘린더 예약건수 표시 + 통계 + 필터)
    - 관리자 예약/가용시간 관리
    ============================================================= */
+
+// ===== Firebase 초기화 =====
+var firebaseConfig = {
+  apiKey: "AIzaSyDT57riGOuw7B5GGmkuL1yRw83dODA7VQA",
+  authDomain: "guamsa-booking.firebaseapp.com",
+  projectId: "guamsa-booking",
+  storageBucket: "guamsa-booking.firebasestorage.app",
+  messagingSenderId: "164444123742",
+  appId: "1:164444123742:web:522a0a4709b74a27e1facf"
+};
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 // ===== 사진 라이트박스 =====
 var lbImages = [
@@ -1420,13 +1436,44 @@ document.addEventListener('keydown', function(e) {
     { label: '오후 3:00',  value: '오후 3:00' }
   ];
 
-  // ===== STORAGE HELPERS =====
+  // ===== FIRESTORE HELPERS =====
+  var _cache = { bookings: null, guestbook: null, availability: {} };
+
+  function fsLoadBookings() {
+    return db.collection('bookings').get().then(function(snap) {
+      var arr = [];
+      snap.forEach(function(doc) { arr.push(Object.assign({ id: doc.id }, doc.data())); });
+      _cache.bookings = arr;
+      return arr;
+    });
+  }
+  function fsLoadGuestbook() {
+    return db.collection('guestbook').get().then(function(snap) {
+      var arr = [];
+      snap.forEach(function(doc) { arr.push(Object.assign({ id: doc.id }, doc.data())); });
+      _cache.guestbook = arr;
+      return arr;
+    });
+  }
+  function fsLoadAvailability() {
+    return db.collection('availability').get().then(function(snap) {
+      var obj = {};
+      snap.forEach(function(doc) { obj[doc.id] = doc.data(); });
+      _cache.availability = obj;
+      availabilityData = obj;
+      return obj;
+    });
+  }
+
+  // Legacy compatibility wrappers
   function getStore(key) {
-    try { return JSON.parse(localStorage.getItem(key)) || null; }
-    catch(e) { return null; }
+    if (key === 'guamsa_bookings') return _cache.bookings || [];
+    if (key === 'guamsa_guestbook') return _cache.guestbook || [];
+    if (key === 'guamsa_availability') return _cache.availability || {};
+    return null;
   }
   function setStore(key, val) {
-    localStorage.setItem(key, JSON.stringify(val));
+    // No-op for Firestore migration; individual save functions used instead
   }
 
   // ===== DATE HELPERS =====
@@ -1444,7 +1491,7 @@ document.addEventListener('keydown', function(e) {
   }
 
   // ===== AVAILABILITY DATA =====
-  var availabilityData = getStore('guamsa_availability') || {};
+  var availabilityData = {};
 
   function isSlotAvailable(dateKey, timeValue) {
     if (!availabilityData[dateKey]) return true;
@@ -1541,25 +1588,28 @@ document.addEventListener('keydown', function(e) {
     if (!name || !phone || !type) { msg.className = 'booking-msg error'; msg.textContent = '모든 필수 항목을 입력해주세요.'; return; }
     if (!bkSelectedDate) { msg.className = 'booking-msg error'; msg.textContent = '예약 날짜를 선택해주세요.'; return; }
     var dk = getDateKey(bkSelectedDate.getFullYear(), bkSelectedDate.getMonth(), bkSelectedDate.getDate());
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings.push({
-      id: Date.now().toString(36), name: name, phone: phone, type: type,
+    var bookingData = {
+      name: name, phone: phone, type: type,
       date: dk, memo: memo, status: 'pending',
       createdAt: new Date().toISOString()
+    };
+    db.collection('bookings').add(bookingData).then(function() {
+      msg.className = 'booking-msg success';
+      msg.textContent = '✅ 예약이 접수되었습니다! 확인 후 연락드리겠습니다.';
+      document.getElementById('bookingForm').reset();
+      bkSelectedDate = null;
+      renderBookingCal();
+      document.getElementById('bkTimeSlots').classList.remove('show');
+      setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
+    }).catch(function(err) {
+      msg.className = 'booking-msg error';
+      msg.textContent = '예약 저장 중 오류가 발생했습니다. 다시 시도해주세요.';
     });
-    setStore('guamsa_bookings', bookings);
-    msg.className = 'booking-msg success';
-    msg.textContent = '✅ 예약이 접수되었습니다! 확인 후 연락드리겠습니다.';
-    document.getElementById('bookingForm').reset();
-    bkSelectedDate = null;
-    renderBookingCal();
-    document.getElementById('bkTimeSlots').classList.remove('show');
-    setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
   });
 
   // ===== GUESTBOOK (PUBLIC) =====
-  function getGuestbookEntries() { return getStore('guamsa_guestbook') || []; }
-  function saveGuestbookEntries(entries) { setStore('guamsa_guestbook', entries); }
+  function getGuestbookEntries() { return _cache.guestbook || []; }
+  function saveGuestbookEntries(entries) { _cache.guestbook = entries; }
 
   function renderGuestbook() {
     var entries = getGuestbookEntries();
@@ -1621,27 +1671,20 @@ document.addEventListener('keydown', function(e) {
 
   // Global functions for guestbook admin actions
   window._gbApprove = function(id) {
-    var entries = getGuestbookEntries();
-    for (var i = 0; i < entries.length; i++) {
-      if (entries[i].id === id) { entries[i].approved = true; break; }
-    }
-    saveGuestbookEntries(entries);
-    renderGuestbook();
+    db.collection('guestbook').doc(id).update({ approved: true }).then(function() {
+      return fsLoadGuestbook();
+    }).then(function() { renderGuestbook(); });
   };
   window._gbUnapprove = function(id) {
-    var entries = getGuestbookEntries();
-    for (var i = 0; i < entries.length; i++) {
-      if (entries[i].id === id) { entries[i].approved = false; break; }
-    }
-    saveGuestbookEntries(entries);
-    renderGuestbook();
+    db.collection('guestbook').doc(id).update({ approved: false }).then(function() {
+      return fsLoadGuestbook();
+    }).then(function() { renderGuestbook(); });
   };
   window._gbDelete = function(id) {
     if (!confirm('이 방명록을 삭제하시겠습니까?')) return;
-    var entries = getGuestbookEntries();
-    entries = entries.filter(function(e) { return e.id !== id; });
-    saveGuestbookEntries(entries);
-    renderGuestbook();
+    db.collection('guestbook').doc(id).delete().then(function() {
+      return fsLoadGuestbook();
+    }).then(function() { renderGuestbook(); });
   };
 
   document.getElementById('gbSubmitBtn').addEventListener('click', function() {
@@ -1662,18 +1705,17 @@ document.addEventListener('keydown', function(e) {
       setTimeout(function() { msgEl.style.display = 'none'; }, 3000);
       return;
     }
-    var entries = getGuestbookEntries();
-    entries.push({
-      id: Date.now().toString(36), name: name, content: content,
+    db.collection('guestbook').add({
+      name: name, content: content,
       approved: false, reply: '', createdAt: new Date().toISOString()
+    }).then(function() {
+      document.getElementById('gbName').value = '';
+      document.getElementById('gbContent').value = '';
+      msgEl.textContent = '🙏 방명록이 등록되었습니다! 관리자 확인 후 공개됩니다.';
+      msgEl.style.display = 'block';
+      msgEl.style.background = '#f0fdf4'; msgEl.style.color = '#166534';
+      setTimeout(function() { msgEl.style.display = 'none'; }, 4000);
     });
-    saveGuestbookEntries(entries);
-    document.getElementById('gbName').value = '';
-    document.getElementById('gbContent').value = '';
-    msgEl.textContent = '🙏 방명록이 등록되었습니다! 관리자 확인 후 공개됩니다.';
-    msgEl.style.display = 'block';
-    msgEl.style.background = '#f0fdf4'; msgEl.style.color = '#166534';
-    setTimeout(function() { msgEl.style.display = 'none'; }, 4000);
   });
 
   // Guestbook Viewer Gate (password required to view)
@@ -1689,7 +1731,7 @@ document.addEventListener('keydown', function(e) {
       gbUnlocked = true;
       document.getElementById('gbViewerGate').style.display = 'none';
       document.getElementById('gbEntries').style.display = 'flex';
-      renderGuestbook();
+      fsLoadGuestbook().then(function() { renderGuestbook(); });
     } else {
       document.getElementById('gbGateErr').style.display = 'block';
       setTimeout(function() { document.getElementById('gbGateErr').style.display = 'none'; }, 3000);
@@ -1711,7 +1753,7 @@ document.addEventListener('keydown', function(e) {
     if (pw === ADMIN_PASSWORD) {
       document.getElementById('bkAdminGate').style.display = 'none';
       document.getElementById('bkAdminPanel').style.display = 'block';
-      renderBkAdminList();
+      fsLoadBookings().then(function() { renderBkAdminList(); });
     } else {
       document.getElementById('bkAdminGateErr').style.display = 'block';
       setTimeout(function() { document.getElementById('bkAdminGateErr').style.display = 'none'; }, 3000);
@@ -1821,24 +1863,23 @@ document.addEventListener('keydown', function(e) {
   };
 
   window.bkAdminConfirm = function(id) {
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'confirmed'; return b; });
-    setStore('guamsa_bookings', bookings);
-    renderBkAdminList();
+    db.collection('bookings').doc(id).update({ status: 'confirmed' }).then(function() {
+      return fsLoadBookings();
+    }).then(function() { renderBkAdminList(); });
   };
   window.bkAdminCancel = function(id) {
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'cancelled'; return b; });
-    setStore('guamsa_bookings', bookings);
-    renderBkAdminList();
+    db.collection('bookings').doc(id).update({ status: 'cancelled' }).then(function() {
+      return fsLoadBookings();
+    }).then(function() { renderBkAdminList(); });
   };
   window.bkAdminDelete = function(id) {
     if (!confirm('이 예약을 삭제하시겠습니까?')) return;
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.filter(function(b) { return b.id !== id; });
-    setStore('guamsa_bookings', bookings);
-    renderBkAdminList();
-    if (bkAdminOpenId === id) closeBkAdminDetail();
+    db.collection('bookings').doc(id).delete().then(function() {
+      return fsLoadBookings();
+    }).then(function() {
+      renderBkAdminList();
+      if (bkAdminOpenId === id) closeBkAdminDetail();
+    });
   };
 
   // ===== ADMIN PANEL =====
@@ -1862,10 +1903,12 @@ document.addEventListener('keydown', function(e) {
       adminLoggedIn = true;
       document.getElementById('adminLoginSection').style.display = 'none';
       document.getElementById('adminDashSection').style.display = 'block';
-      renderAdminBookings();
-      renderAdminGuestbook();
-      initAdminAvailability();
-      initAdminBookingCal();
+      Promise.all([fsLoadBookings(), fsLoadGuestbook(), fsLoadAvailability()]).then(function() {
+        renderAdminBookings();
+        renderAdminGuestbook();
+        initAdminAvailability();
+        initAdminBookingCal();
+      });
     } else {
       document.getElementById('adminLoginErr').style.display = 'block';
     }
@@ -1991,17 +2034,18 @@ document.addEventListener('keydown', function(e) {
   }
 
   window.renderAfterBookingChange = function() {
-    renderAdminBookingStats();
-    renderAdminBookingCal();
-    renderAdminDateBookings();
-    renderAdminBookings();
-    // Refresh detail panel if open
-    if (currentDetailBookingId) {
-      var panel = document.getElementById('adminBookingDetail');
-      if (panel.classList.contains('show')) {
-        openBookingDetail(currentDetailBookingId);
+    fsLoadBookings().then(function() {
+      renderAdminBookingStats();
+      renderAdminBookingCal();
+      renderAdminDateBookings();
+      renderAdminBookings();
+      if (currentDetailBookingId) {
+        var panel = document.getElementById('adminBookingDetail');
+        if (panel.classList.contains('show')) {
+          openBookingDetail(currentDetailBookingId);
+        }
       }
-    }
+    });
   };
 
   // ===== ADMIN: BOOKINGS LIST =====
@@ -2053,28 +2097,26 @@ document.addEventListener('keydown', function(e) {
   }
 
   window.confirmBooking = function(id) {
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'confirmed'; return b; });
-    setStore('guamsa_bookings', bookings);
-    renderAdminBookings();
+    db.collection('bookings').doc(id).update({ status: 'confirmed' }).then(function() {
+      return fsLoadBookings();
+    }).then(function() { renderAdminBookings(); });
   };
   window.cancelBooking = function(id) {
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) { if (b.id === id) b.status = 'cancelled'; return b; });
-    setStore('guamsa_bookings', bookings);
-    renderAdminBookings();
+    db.collection('bookings').doc(id).update({ status: 'cancelled' }).then(function() {
+      return fsLoadBookings();
+    }).then(function() { renderAdminBookings(); });
   };
   window.deleteBooking = function(id) {
     if (!confirm('이 예약을 삭제하시겠습니까?')) return;
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.filter(function(b) { return b.id !== id; });
-    setStore('guamsa_bookings', bookings);
-    renderAdminBookings();
-    renderAdminBookingCal();
-    // Close detail panel if this booking was open
-    if (currentDetailBookingId === id) {
-      closeBookingDetail();
-    }
+    db.collection('bookings').doc(id).delete().then(function() {
+      return fsLoadBookings();
+    }).then(function() {
+      renderAdminBookings();
+      renderAdminBookingCal();
+      if (currentDetailBookingId === id) {
+        closeBookingDetail();
+      }
+    });
   };
 
   // ===== ADMIN: BOOKING DETAIL =====
@@ -2146,20 +2188,16 @@ document.addEventListener('keydown', function(e) {
 
   function saveAdminMemo() {
     if (!currentDetailBookingId) return;
-    var bookings = getStore('guamsa_bookings') || [];
     var memoVal = document.getElementById('abdAdminMemo').value;
-    bookings = bookings.map(function(b) {
-      if (b.id === currentDetailBookingId) b.adminMemo = memoVal;
-      return b;
+    db.collection('bookings').doc(currentDetailBookingId).update({ adminMemo: memoVal }).then(function() {
+      return fsLoadBookings();
+    }).then(function() {
+      var savedEl = document.getElementById('abdMemoSaved');
+      savedEl.classList.add('show');
+      setTimeout(function() { savedEl.classList.remove('show'); }, 2000);
+      renderAdminBookings();
+      renderAdminDateBookings();
     });
-    setStore('guamsa_bookings', bookings);
-    // Show saved indicator
-    var savedEl = document.getElementById('abdMemoSaved');
-    savedEl.classList.add('show');
-    setTimeout(function() { savedEl.classList.remove('show'); }, 2000);
-    // Refresh lists to show memo icon
-    renderAdminBookings();
-    renderAdminDateBookings();
   }
 
   function addConsultHistory() {
@@ -2168,29 +2206,24 @@ document.addEventListener('keydown', function(e) {
     var content = input.value.trim();
     if (!content) return;
 
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) {
-      if (b.id === currentDetailBookingId) {
-        if (!b.consultHistory) b.consultHistory = [];
-        b.consultHistory.push({
-          date: new Date().toISOString(),
-          content: content
-        });
+    db.collection('bookings').doc(currentDetailBookingId).update({
+      consultHistory: firebase.firestore.FieldValue.arrayUnion({
+        date: new Date().toISOString(),
+        content: content
+      })
+    }).then(function() {
+      input.value = '';
+      return fsLoadBookings();
+    }).then(function() {
+      var bookings = _cache.bookings;
+      var bk = null;
+      for (var i = 0; i < bookings.length; i++) {
+        if (bookings[i].id === currentDetailBookingId) { bk = bookings[i]; break; }
       }
-      return b;
+      if (bk) renderConsultHistory(bk.consultHistory || []);
+      renderAdminBookings();
+      renderAdminDateBookings();
     });
-    setStore('guamsa_bookings', bookings);
-    input.value = '';
-
-    // Re-render history
-    var bk = null;
-    for (var i = 0; i < bookings.length; i++) {
-      if (bookings[i].id === currentDetailBookingId) { bk = bookings[i]; break; }
-    }
-    if (bk) renderConsultHistory(bk.consultHistory || []);
-    // Refresh lists to show history icon
-    renderAdminBookings();
-    renderAdminDateBookings();
   }
 
   function renderConsultHistory(history) {
@@ -2219,21 +2252,23 @@ document.addEventListener('keydown', function(e) {
   window.deleteConsultHistory = function(historyIndex) {
     if (!currentDetailBookingId) return;
     if (!confirm('이 상담 이력을 삭제하시겠습니까?')) return;
-    var bookings = getStore('guamsa_bookings') || [];
-    bookings = bookings.map(function(b) {
-      if (b.id === currentDetailBookingId && b.consultHistory) {
-        b.consultHistory.splice(historyIndex, 1);
-      }
-      return b;
-    });
-    setStore('guamsa_bookings', bookings);
+    var bookings = _cache.bookings;
     var bk = null;
     for (var i = 0; i < bookings.length; i++) {
       if (bookings[i].id === currentDetailBookingId) { bk = bookings[i]; break; }
     }
-    if (bk) renderConsultHistory(bk.consultHistory || []);
-    renderAdminBookings();
-    renderAdminDateBookings();
+    if (bk && bk.consultHistory) {
+      var newHistory = bk.consultHistory.slice();
+      newHistory.splice(historyIndex, 1);
+      db.collection('bookings').doc(currentDetailBookingId).update({ consultHistory: newHistory }).then(function() {
+        return fsLoadBookings();
+      }).then(function() {
+        var updated = _cache.bookings.find(function(b) { return b.id === currentDetailBookingId; });
+        if (updated) renderConsultHistory(updated.consultHistory || []);
+        renderAdminBookings();
+        renderAdminDateBookings();
+      });
+    }
   };
 
   // Booking detail event listeners
@@ -2310,15 +2345,18 @@ document.addEventListener('keydown', function(e) {
   function saveAdminAvailability() {
     if (!adminSelectedDate) return;
     var toggles = document.getElementById('adminToggleList').querySelectorAll('input[type="checkbox"]');
-    if (!availabilityData[adminSelectedDate]) availabilityData[adminSelectedDate] = {};
+    var slotData = {};
     toggles.forEach(function(toggle) {
-      availabilityData[adminSelectedDate][toggle.getAttribute('data-time')] = toggle.checked;
+      slotData[toggle.getAttribute('data-time')] = toggle.checked;
     });
-    setStore('guamsa_availability', availabilityData);
-    document.getElementById('adminAvailStatus').textContent = '✅ 저장되었습니다!';
-    renderAdminCal();
-    renderBookingCal();
-    setTimeout(function() { document.getElementById('adminAvailStatus').textContent = ''; }, 3000);
+    db.collection('availability').doc(adminSelectedDate).set(slotData).then(function() {
+      availabilityData[adminSelectedDate] = slotData;
+      _cache.availability = availabilityData;
+      document.getElementById('adminAvailStatus').textContent = '✅ 저장되었습니다!';
+      renderAdminCal();
+      renderBookingCal();
+      setTimeout(function() { document.getElementById('adminAvailStatus').textContent = ''; }, 3000);
+    });
   }
 
   // ===== ADMIN: GUESTBOOK MANAGEMENT =====
@@ -2400,40 +2438,39 @@ document.addEventListener('keydown', function(e) {
   document.getElementById('adminGbReplyBtn').addEventListener('click', function() {
     if (!adminGbSelectedId) return;
     var replyText = document.getElementById('adminGbReplyInput').value.trim();
-    var entries = getGuestbookEntries();
-    entries = entries.map(function(e) {
-      if (e.id === adminGbSelectedId) {
-        e.reply = replyText;
-        if (replyText) e.approved = true; // Auto-approve when replying
-      }
-      return e;
+    var updateData = { reply: replyText };
+    if (replyText) updateData.approved = true;
+    db.collection('guestbook').doc(adminGbSelectedId).update(updateData).then(function() {
+      return fsLoadGuestbook();
+    }).then(function() {
+      renderAdminGuestbook();
+      renderGuestbook();
+      window.openGbDetail(adminGbSelectedId);
+      alert(replyText ? '답글이 등록되었습니다! (자동 공개 처리됨)' : '답글이 삭제되었습니다.');
     });
-    saveGuestbookEntries(entries);
-    renderAdminGuestbook();
-    renderGuestbook();
-    // Update detail view
-    window.openGbDetail(adminGbSelectedId);
-    alert(replyText ? '답글이 등록되었습니다! (자동 공개 처리됨)' : '답글이 삭제되었습니다.');
   });
 
   window.toggleGbApproval = function(id, approved) {
-    var entries = getGuestbookEntries();
-    entries = entries.map(function(e) { if (e.id === id) e.approved = approved; return e; });
-    saveGuestbookEntries(entries);
-    renderAdminGuestbook();
-    renderGuestbook();
+    db.collection('guestbook').doc(id).update({ approved: approved }).then(function() {
+      return fsLoadGuestbook();
+    }).then(function() {
+      renderAdminGuestbook();
+      renderGuestbook();
+    });
   };
 
   window.deleteGuestbook = function(id) {
     if (!confirm('이 방명록을 삭제하시겠습니까?')) return;
-    var entries = getGuestbookEntries().filter(function(e) { return e.id !== id; });
-    saveGuestbookEntries(entries);
-    if (adminGbSelectedId === id) {
-      adminGbSelectedId = null;
-      document.getElementById('adminGbDetail').classList.remove('show');
-    }
-    renderAdminGuestbook();
-    renderGuestbook();
+    db.collection('guestbook').doc(id).delete().then(function() {
+      return fsLoadGuestbook();
+    }).then(function() {
+      if (adminGbSelectedId === id) {
+        adminGbSelectedId = null;
+        document.getElementById('adminGbDetail').classList.remove('show');
+      }
+      renderAdminGuestbook();
+      renderGuestbook();
+    });
   };
 
   // ===== SMOOTH SCROLL =====
@@ -2447,8 +2484,15 @@ document.addEventListener('keydown', function(e) {
     });
   });
 
+  // ===== 초기 데이터 로드 (Firestore) =====
+  Promise.all([fsLoadAvailability(), fsLoadGuestbook()]).then(function() {
+    renderBookingCal();
+    renderGuestbook();
+  });
+
 })();
 </script>
 
 </body>
 </html>
+
