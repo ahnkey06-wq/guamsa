@@ -1599,7 +1599,7 @@ document.addEventListener('keydown', function(e) {
       document.getElementById('bookingForm').reset();
       bkSelectedDate = null;
       renderBookingCal();
-      document.getElementById('bkTimeSlots').classList.remove('show');
+      var ts = document.getElementById('bkTimeSlots'); if (ts) ts.classList.remove('show');
       setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
     }).catch(function(err) {
       console.error('Booking save error:', err);
