@@ -1602,8 +1602,9 @@ document.addEventListener('keydown', function(e) {
       document.getElementById('bkTimeSlots').classList.remove('show');
       setTimeout(function() { msg.className = 'booking-msg'; msg.textContent = ''; }, 5000);
     }).catch(function(err) {
+      console.error('Booking save error:', err);
       msg.className = 'booking-msg error';
-      msg.textContent = '예약 저장 중 오류가 발생했습니다. 다시 시도해주세요.';
+      msg.textContent = '예약 저장 중 오류가 발생했습니다: ' + (err.message || err);
     });
   });
 
